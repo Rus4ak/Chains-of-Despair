@@ -17,8 +17,12 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 349306030725480845, guid: ae4812b4085471e4d9fa91c480747f82, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 349306030725480845, guid: ae4812b4085471e4d9fa91c480747f82, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 1122288386652707639, guid: ae4812b4085471e4d9fa91c480747f82, type: 3}
       propertyPath: m_LocalScale.x
@@ -70,6 +74,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1122288386652707639, guid: ae4812b4085471e4d9fa91c480747f82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294592306980118616, guid: ae4812b4085471e4d9fa91c480747f82, type: 3}
+      propertyPath: m_LightProbeUsage
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9196425364680057701, guid: ae4812b4085471e4d9fa91c480747f82, type: 3}

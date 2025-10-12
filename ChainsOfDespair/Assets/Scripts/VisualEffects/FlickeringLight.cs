@@ -9,6 +9,8 @@ public class FlickeringLight : MonoBehaviour
     private float[] _lightIntensity;
     private AudioSource _audioSource;
 
+    private Transform _player;
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -22,38 +24,75 @@ public class FlickeringLight : MonoBehaviour
         {
             _lightIntensity[i] = _lights[i].intensity;
         }
+    }
 
+    private void OnEnable()
+    {
         StartCoroutine(Flick());
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     IEnumerator Flick()
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(.2f, 5f));
-
-            foreach (var light in _lights)
+            if (_player == null)
             {
-                light.intensity = 0;
+                GameObject playerGO = GameObject.FindWithTag("Player");
+
+                if (playerGO != null)
+                    _player = playerGO.transform;
+                else
+                {
+                    yield return null;
+                    continue;
+                }
             }
 
-            foreach (var l in _lamps)
+            foreach (var l in _lights)
             {
-                l.material.DisableKeyword("_EMISSION");
+                if (!l.gameObject.activeInHierarchy)
+                {
+                    yield return new WaitForEndOfFrame();
+                    continue;
+                }
             }
 
-            _audioSource.Play();
-
-            yield return new WaitForSeconds(.2f);
-
-            for (int i = 0; i < _lights.Length; i++)
+            if (Vector3.Distance(_player.position, transform.position) < 50)
             {
-                _lights[i].intensity = _lightIntensity[i];
+                yield return new WaitForSeconds(Random.Range(.2f, 5f));
+
+                foreach (var light in _lights)
+                {
+                    light.intensity = 0;
+                }
+
+                foreach (var l in _lamps)
+                {
+                    l.material.DisableKeyword("_EMISSION");
+                }
+
+                _audioSource.Play();
+
+                yield return new WaitForSeconds(.2f);
+
+                for (int i = 0; i < _lights.Length; i++)
+                {
+                    _lights[i].intensity = _lightIntensity[i];
+                }
+
+                foreach (var l in _lamps)
+                {
+                    l.material.EnableKeyword("_EMISSION");
+                }
             }
-
-            foreach (var l in _lamps)
+            else
             {
-                l.material.EnableKeyword("_EMISSION");
+                yield return new WaitForSeconds(1);
             }
         }
     }

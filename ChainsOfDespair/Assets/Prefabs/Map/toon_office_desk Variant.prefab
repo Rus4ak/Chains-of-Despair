@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4936383833826048016, guid: 4d0f11df00a954898acb314f59db9866, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4936383833826048016, guid: 4d0f11df00a954898acb314f59db9866, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6109874162769150847, guid: 4d0f11df00a954898acb314f59db9866, type: 3}
       propertyPath: m_LocalScale.x
       value: 10
@@ -69,8 +77,12 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6881907605795576261, guid: 4d0f11df00a954898acb314f59db9866, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6881907605795576261, guid: 4d0f11df00a954898acb314f59db9866, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

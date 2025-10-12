@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 6081936810724855972}
   m_Layer: 9
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -438,6 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3aa85e7570ef248970bf00af3ebc73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _chain: {fileID: 268268623437793780, guid: 5ac33d5ac285db841a74327e8fd1b08f, type: 3}
   _forwardJoint: {fileID: 1015403383403754941}
   _backJoint: {fileID: 5594583710129654401}
@@ -468,6 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ec1df0d55f5a74cb3dc139ec1c15a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _promptText: {fileID: 4960663104717885307}
   _checkDistance: 8
   _camera: {fileID: 4045530561872168541}
@@ -2466,7 +2468,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 887
+    m_Bits: 1911
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

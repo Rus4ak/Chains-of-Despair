@@ -32,6 +32,11 @@ public class ScreenFade : MonoBehaviour
         StartCoroutine(Fade(1f, 0f));
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator Fade(float startAlpha, float endAlpha)
     {
         float time = 0f;

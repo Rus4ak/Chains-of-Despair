@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6957363007958532461, guid: cd6fb14eee4254287b5f2cb8ecc8e5db, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8126367398313867778, guid: cd6fb14eee4254287b5f2cb8ecc8e5db, type: 3}
       propertyPath: m_LocalScale.x
       value: 15
@@ -65,8 +69,12 @@ PrefabInstance:
       value: toon_office_board Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8902904784820920504, guid: cd6fb14eee4254287b5f2cb8ecc8e5db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902904784820920504, guid: cd6fb14eee4254287b5f2cb8ecc8e5db, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -69,8 +69,16 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5698896470215032952, guid: 37abfb435500bdb489a6e4946b0358b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698896470215032952, guid: 37abfb435500bdb489a6e4946b0358b5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219079722520945125, guid: 37abfb435500bdb489a6e4946b0358b5, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

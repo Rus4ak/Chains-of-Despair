@@ -161,8 +161,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void OnDrawGizmos()
     {
-        bool isOnGround = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundCheckLayer);
-        Gizmos.color = isOnGround ? Color.green : Color.red;
+        Gizmos.color = _isOnGround ? Color.green : Color.red;
 
         Gizmos.DrawWireSphere(_groundCheck.position, _groundCheckRadius);
     }

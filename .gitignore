@@ -12,6 +12,9 @@
 /ChainsOfDespair/[Ll]ogs/
 /ChainsOfDespair/[Uu]ser[Ss]ettings/
 /ChainsOfDespair/[Ll]ibrary/
+/ChainsOfDespair/Assets/**/Lightmap-*
+/ChainsOfDespair/Assets/**/LightingData.asset
+/ChainsOfDespair/Assets/**/ReflectionProbe-*
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -67,8 +70,5 @@
 # Temporary auto-generated Android Assets
 /ChainsOfDespair/[Aa]ssets/[Ss]treamingAssets/
 /ChainsOfDespair/[Aa]ssets/[Ss]treamingAssets.meta
-
-
-*LightingData.asset
 
 # End of https://www.toptal.com/developers/gitignore/api/unity

@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 125
   m_IsActive: 1
 --- !u!4 &5627247012701075522
 Transform:
@@ -70,8 +70,12 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4907499685619757410, guid: d8e62113aeeee43d183ac5185ed7cb83, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907499685619757410, guid: d8e62113aeeee43d183ac5185ed7cb83, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 5715384973331311576, guid: d8e62113aeeee43d183ac5185ed7cb83, type: 3}
       propertyPath: m_LocalScale.x
@@ -123,6 +127,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5715384973331311576, guid: d8e62113aeeee43d183ac5185ed7cb83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6852803555852243127, guid: d8e62113aeeee43d183ac5185ed7cb83, type: 3}
+      propertyPath: m_LightProbeUsage
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -10,9 +10,8 @@ public class DoorData
     public float zMoveTo;
 }
 
-public class Door : NetworkBehaviour, IInteractable
+public class Door : MonoBehaviour, IInteractable
 {
-    [SerializeField] private bool _isStartGame = false;
     [SerializeField] private float _openTime = 1.5f;
     [SerializeField] private DoorData[] _doors;
 
@@ -27,20 +26,12 @@ public class Door : NetworkBehaviour, IInteractable
 
     public string GetInteractionPrompt()
     {
-        if (_isStartGame)
-            return "Start the game";
-        else
-            return "Open the door";
+        return "Open the door";
     }
 
     public void Interact()
     {
-        if (_isStartGame)
-        {
-            StartFadeServerRpc();
-        }
-        else
-            OpenDoorServerRpc();
+        OpenDoorServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -92,48 +83,5 @@ public class Door : NetworkBehaviour, IInteractable
         }
 
         _isMove = false;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void StartGameServerRpc()
-    {
-        StartGameClientRpc();
-    }
-
-    [ClientRpc]
-    private void StartGameClientRpc()
-    {
-        PlayerInitialize ownerPlayer = PlayersManager.Instance.ownerPlayer;
-        
-        Vector3 position = ownerPlayer.transform.position;
-        position.y -= 50;
-            
-        ownerPlayer.Spawn(position);
-
-        ScreenFade.Instance.FadeIn();
-    }
-
-    private IEnumerator StartFade()
-    {
-        ScreenFade.Instance.FadeOut();
-
-        while (!ScreenFade.Instance.isFade)
-        {
-            yield return null;
-        }
-
-        StartGameServerRpc();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void StartFadeServerRpc()
-    {
-        StartFadeClientRpc();
-    }
-
-    [ClientRpc]
-    private void StartFadeClientRpc()
-    {
-        StartCoroutine(StartFade());
     }
 }
