@@ -10,7 +10,7 @@ public class DoorData
     public float zMoveTo;
 }
 
-public class Door : MonoBehaviour, IInteractable
+public class Door : NetworkBehaviour, IInteractable
 {
     [SerializeField] private float _openTime = 1.5f;
     [SerializeField] private DoorData[] _doors;

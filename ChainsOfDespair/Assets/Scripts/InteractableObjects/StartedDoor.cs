@@ -2,11 +2,8 @@ using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class StartedDoor : MonoBehaviour, IInteractable
+public class StartedDoor : NetworkBehaviour, IInteractable
 {
-    [SerializeField] private GameObject _lobby;
-    [SerializeField] private GameObject _game;
-
     private AudioSource _audioSource;
 
     private void Awake()
@@ -33,9 +30,6 @@ public class StartedDoor : MonoBehaviour, IInteractable
     [ClientRpc]
     private void StartGameClientRpc()
     {
-        _lobby.SetActive(false);
-        _game.SetActive(true);
-
         PlayerInitialize ownerPlayer = PlayersManager.Instance.ownerPlayer;
 
         Vector3 position = ownerPlayer.transform.position;

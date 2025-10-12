@@ -16,6 +16,7 @@ public class PlayerMovement : NetworkBehaviour
     private Rigidbody _rb;
     private bool _isOnGround;
     private Vector3 _move;
+    private Stamina _staminaManager;
 
     private NetworkVariable<Vector3> _localMove = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> _isRun = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -24,6 +25,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+        _staminaManager = GetComponent<Stamina>();
     }
 
     private void Update()
@@ -34,7 +36,10 @@ public class PlayerMovement : NetworkBehaviour
             return;
 
         if (!Input.GetKey(KeyCode.LeftShift) || !Input.GetKey(KeyCode.W))
+        {
+            _staminaManager.StopUse();
             _isRun.Value = false;
+        }
 
         Jump();
     }
@@ -63,8 +68,12 @@ public class PlayerMovement : NetworkBehaviour
             
             if (Input.GetKey(KeyCode.LeftShift) && vertical > 0)
             {
-                speed = _runSpeed;
-                _isRun.Value = true;
+                if (_staminaManager.isCanRun)
+                {
+                    speed = _runSpeed;
+                    _isRun.Value = true;
+                    _staminaManager.StartUse();
+                }
             }
 
             _rb.linearVelocity = new Vector3(_move.x * speed, _rb.linearVelocity.y, _move.z * speed);
@@ -132,7 +141,7 @@ public class PlayerMovement : NetworkBehaviour
             _animator.SetBool("IsRun", true);
         }
 
-        if (_animator.GetBool("IsRun") && !_isRun.Value)
+        if (_animator.GetBool("IsRun") && !_isRun.Value || !_staminaManager.isCanRun)
         {
             _stepsSound.pitch = 1f;
             _animator.SetBool("IsRun", false);
