@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using WebSocketSharp;
 
 [Serializable]
 public class DoorData
@@ -14,24 +15,39 @@ public class Door : NetworkBehaviour, IInteractable
 {
     [SerializeField] private float _openTime = 1.5f;
     [SerializeField] private DoorData[] _doors;
+    [SerializeField] private AudioSource _lockedDoorAudioSource;
+    [SerializeField] private string _keyName = null;
 
     private bool _isMove = false;
-
     private AudioSource _audioSource;
+
+    public string KeyName => _keyName;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
+        
+        if (!KeySpawner.isSpawned)
+            if (!_keyName.IsNullOrEmpty())
+                KeySpawner.lockedDoors.Add(this);
     }
 
     public string GetInteractionPrompt()
     {
-        return "Open the door";
+        if (_keyName.IsNullOrEmpty())
+            return "Open the door";
+        else
+            return $"Locked, key '{_keyName}' required";
     }
 
     public void Interact()
     {
-        OpenDoorServerRpc();
+        if (_keyName.IsNullOrEmpty())
+            OpenDoorServerRpc();
+        else
+        {
+            _lockedDoorAudioSource.Play();
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
