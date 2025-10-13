@@ -360,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5063223942988036812, guid: 7a875c66a98d6fc4c93ab1fc949dbd31, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4932982780345470907, guid: 7a875c66a98d6fc4c93ab1fc949dbd31, type: 3}
       propertyPath: m_LightProbeUsage

@@ -33,7 +33,7 @@ public class StartedDoor : NetworkBehaviour, IInteractable
         PlayerInitialize ownerPlayer = PlayersManager.Instance.ownerPlayer;
 
         Vector3 position = ownerPlayer.transform.position;
-        position.y -= 50;
+        position.y = -50;
 
         ownerPlayer.Spawn(position);
 
