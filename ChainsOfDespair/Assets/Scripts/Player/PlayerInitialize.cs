@@ -7,6 +7,7 @@ public class PlayerInitialize : NetworkBehaviour
     [SerializeField] private GameObject _chain;
     [SerializeField] private Transform _forwardJoint;
     [SerializeField] private Transform _backJoint;
+    [SerializeField] private GameObject _canvas;
 
     private Rigidbody _rigidbody;
 
@@ -40,6 +41,8 @@ public class PlayerInitialize : NetworkBehaviour
 
         if (IsOwner)
             PlayersManager.Instance.ownerPlayer = this;
+        else
+            _canvas.SetActive(false);
     }
 
     public void Spawn(Vector3 position)

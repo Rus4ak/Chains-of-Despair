@@ -3,12 +3,8 @@ using UnityEngine;
 
 public class Key : NetworkBehaviour, IInteractable
 {
-    private AudioSource _audioSource;
-
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private GameObject _keyModel;
 
     public string GetInteractionPrompt()
     {
@@ -29,7 +25,9 @@ public class Key : NetworkBehaviour, IInteractable
     [ClientRpc]
     private void TakeKeyClientRpc()
     {
+        Destroy(_keyModel);
+
         _audioSource.Play();
-        Destroy(gameObject);
+        Destroy(gameObject, _audioSource.clip.length);
     }
 }
