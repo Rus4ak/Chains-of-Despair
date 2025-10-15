@@ -16,6 +16,7 @@ public class Door : NetworkBehaviour, IInteractable
     [SerializeField] private float _openTime = 1.5f;
     [SerializeField] private DoorData[] _doors;
     [SerializeField] private AudioSource _lockedDoorAudioSource;
+    [SerializeField] private AudioSource _unlockDoorAudioSource;
     [SerializeField] private string _keyName = null;
 
     private bool _isMove = false;
@@ -46,7 +47,14 @@ public class Door : NetworkBehaviour, IInteractable
             OpenDoorServerRpc();
         else
         {
-            _lockedDoorAudioSource.Play();
+            if (PlayersManager.Instance.ownerInventory.selectedItem == _keyName)
+            {
+                _keyName = null;
+                _unlockDoorAudioSource.Play();
+            }
+            
+            else
+                _lockedDoorAudioSource.Play();
         }
     }
 

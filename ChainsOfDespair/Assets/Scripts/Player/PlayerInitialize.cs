@@ -8,6 +8,7 @@ public class PlayerInitialize : NetworkBehaviour
     [SerializeField] private Transform _forwardJoint;
     [SerializeField] private Transform _backJoint;
     [SerializeField] private GameObject _canvas;
+    [SerializeField] private Inventory _inventory;
 
     private Rigidbody _rigidbody;
 
@@ -40,7 +41,10 @@ public class PlayerInitialize : NetworkBehaviour
         players.Add(this);
 
         if (IsOwner)
+        {
             PlayersManager.Instance.ownerPlayer = this;
+            PlayersManager.Instance.ownerInventory = _inventory;
+        }
         else
             _canvas.SetActive(false);
     }

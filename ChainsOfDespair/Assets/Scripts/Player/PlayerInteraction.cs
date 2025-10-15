@@ -23,11 +23,9 @@ public class PlayerInteraction : NetworkBehaviour
         {
             if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
-                if (!_promptText.gameObject.activeInHierarchy)
-                {
-                    _promptText.text = "[E]\n" + interactable.GetInteractionPrompt();
-                    _promptText.gameObject.SetActive(true);
-                }
+                _promptText.text = "[E]\n" + interactable.GetInteractionPrompt();
+                _promptText.gameObject.SetActive(true);
+                
                 if (Input.GetKeyDown(KeyCode.E))
                     interactable.Interact();
             }
