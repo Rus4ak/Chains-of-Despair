@@ -34,7 +34,7 @@ public class LookAround : NetworkBehaviour
 
         transform.Rotate(Vector3.up * mouseX);
     }
-
+    
     private void LateUpdate()
     {
         if (!IsOwner)

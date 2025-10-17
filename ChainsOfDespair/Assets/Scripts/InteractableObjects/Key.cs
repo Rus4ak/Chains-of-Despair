@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class Key : NetworkBehaviour, IInteractable
 {
-    [SerializeField] private AudioSource _audioSource;
     [SerializeField] private GameObject _keyModel;
     [SerializeField] private Sprite _keySprite;
+    [SerializeField] private AudioSource _takeKeyAudioSource;
+    [SerializeField] private AudioSource _fallKeyAudioSource;
 
     public string GetInteractionPrompt()
     {
@@ -36,7 +37,10 @@ public class Key : NetworkBehaviour, IInteractable
             }
 
         if (isFreeSlot)
+        {
+            PlayersManager.Instance.ownerInventory.FillSlot(_keySprite, gameObject.name, "Key");
             TakeKeyServerRpc();
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -48,11 +52,21 @@ public class Key : NetworkBehaviour, IInteractable
     [ClientRpc]
     private void TakeKeyClientRpc()
     {
-        PlayersManager.Instance.ownerInventory.FillSlot(_keySprite, gameObject.name, "Key");
-
         Destroy(_keyModel);
 
-        _audioSource.Play();
-        Destroy(gameObject, _audioSource.clip.length);
+        _takeKeyAudioSource.Play();
+        DestroyKeyServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DestroyKeyServerRpc()
+    {
+        Destroy(gameObject, _takeKeyAudioSource.clip.length);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.gameObject.CompareTag("Player"))
+            _fallKeyAudioSource.Play();
     }
 }

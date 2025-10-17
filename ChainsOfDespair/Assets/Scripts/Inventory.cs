@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class Inventory : NetworkBehaviour
 {
     [SerializeField] private Image[] _slots;
     [SerializeField] private Transform _camera;
@@ -17,6 +17,9 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner)
+            return;
+
         HandleNumberInput();
         HandleScrollInput();
 
@@ -59,14 +62,11 @@ public class Inventory : MonoBehaviour
         if (slot.sprite == null)
             return;
 
-        foreach (var availableObject in _availableObjects)
+        for (int i = 0; i < _availableObjects.Length; i++)
         {
-            if (availableObject.name == _slotObjectsName[_selectedSlot])
+            if (_availableObjects[i].name == _slotObjectsName[_selectedSlot])
             {
-                GameObject obj = Instantiate(availableObject, _camera.position, Quaternion.identity);
-                obj.GetComponent<NetworkObject>().Spawn();
-                obj.GetComponent<Rigidbody>().AddForce(_camera.forward * _throwForce);
-                obj.name = _slots[_selectedSlot].name;
+                SpawnObjectServerRpc(i);
 
                 _slotObjectsName[_selectedSlot] = "";
             }
@@ -77,6 +77,27 @@ public class Inventory : MonoBehaviour
         slot.enabled = false;
 
         freeSlots[_selectedSlot] = true;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnObjectServerRpc(int availableObjectIndex)
+    {
+        NetworkObject obj = Instantiate(_availableObjects[availableObjectIndex], _camera.position, Quaternion.identity).GetComponent<NetworkObject>();
+        obj.Spawn();
+
+        NetworkObjectReference objRef = obj;
+        ThrowObjectClientRpc(objRef);
+    }
+
+    [ClientRpc]
+    private void ThrowObjectClientRpc(NetworkObjectReference objRef)
+    {
+        if (objRef.TryGet(out NetworkObject obj))
+        {
+            Rigidbody rb = obj.GetComponent<Rigidbody>();
+            rb.AddForce(_camera.forward * _throwForce);
+            obj.name = _slots[_selectedSlot].name;
+        }
     }
 
     private void SelectSlot(int selectedSlot)

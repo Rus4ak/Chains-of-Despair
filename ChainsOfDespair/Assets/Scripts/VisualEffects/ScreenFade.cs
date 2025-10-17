@@ -51,5 +51,7 @@ public class ScreenFade : MonoBehaviour
         }
 
         isFade = true;
+
+        PlayersManager.Instance.ownerCalculateDistance.enabled = true;
     }
 }

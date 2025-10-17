@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class StartedDoor : NetworkBehaviour, IInteractable
 {
+    [Header("Spawn area")]
+    [SerializeField] private Vector2 _minPos;
+    [SerializeField] private Vector2 _maxPos;
+
     private AudioSource _audioSource;
 
     private void Awake()
@@ -30,11 +34,15 @@ public class StartedDoor : NetworkBehaviour, IInteractable
     [ClientRpc]
     private void StartGameClientRpc()
     {
+        PlayersManager.Instance.ownerCalculateDistance.enabled = false;
+
         PlayerInitialize ownerPlayer = PlayersManager.Instance.ownerPlayer;
 
         Vector3 position = ownerPlayer.transform.position;
         position.y = -50;
-
+        position.x = Mathf.Clamp(position.x, _minPos.x, _maxPos.x);
+        position.z = Mathf.Clamp(position.z, _minPos.y, _maxPos.y);
+        
         ownerPlayer.Spawn(position);
 
         ScreenFade.Instance.FadeIn();

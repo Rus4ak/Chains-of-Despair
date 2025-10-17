@@ -3,20 +3,27 @@ using UnityEngine;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float _speed;
     [SerializeField] private float _runSpeed;
     [SerializeField] private float _jumpForce;
+
+    [Header("Ground check")]
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private float _groundCheckRadius;
     [SerializeField] private LayerMask _groundCheckLayer;
+
+    [Header("Sounds")]
     [SerializeField] private AudioSource _stepsSound;
-    [SerializeField] private AudioSource _jumpSound;
+    [SerializeField] private AudioSource _startJumpSound;
+    [SerializeField] private AudioSource _endJumpSound;
 
     private Animator _animator;
     private Rigidbody _rb;
     private bool _isOnGround;
     private Vector3 _move;
     private Stamina _staminaManager;
+    private bool _isPlayEndJumpSound;
 
     private NetworkVariable<Vector3> _localMove = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> _isRun = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -46,12 +53,24 @@ public class PlayerMovement : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        _isOnGround = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundCheckLayer);
+
+        if (_isOnGround)
+        {
+            if (_isPlayEndJumpSound)
+                _endJumpSound.Play();
+
+            _isPlayEndJumpSound = false;
+        }
+        else
+        {
+            _isPlayEndJumpSound = true;
+        }
+
         if (!IsOwner)
             return;
 
         Move();
-
-        _isOnGround = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundCheckLayer);
     }
 
     private void Move()
@@ -148,6 +167,19 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
+    public void CheckIfFall()
+    {
+        if (!_isOnGround)
+        {
+            _animator.SetBool("IsJump", false);
+        }
+    }
+
+    public void StopJumpAnimation()
+    {
+        _animator.SetBool("IsJump", false);
+    }
+
     [ServerRpc]
     private void StartJumpAnimationServerRpc()
     {
@@ -157,15 +189,8 @@ public class PlayerMovement : NetworkBehaviour
     [ClientRpc]
     private void StartJumpAnimationClientRpc() 
     {
-        _jumpSound.Play();
+        _startJumpSound.Play();
         _animator.SetBool("IsJump", true);
-
-        Invoke(nameof(StopJumpAnimation), 2f);
-    }
-
-    public void StopJumpAnimation()
-    {
-        _animator.SetBool("IsJump", false);
     }
 
     private void OnDrawGizmos()

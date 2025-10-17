@@ -8,6 +8,7 @@ public class PlayersManager : MonoBehaviour
     [HideInInspector] public List<PlayerInitialize> players = new List<PlayerInitialize>();
     [HideInInspector] public PlayerInitialize ownerPlayer;
     [HideInInspector] public Inventory ownerInventory;
+    [HideInInspector] public CalculateDistance ownerCalculateDistance;
 
     private void Awake()
     {

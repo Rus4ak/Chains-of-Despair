@@ -16,24 +16,32 @@ public class CalculateDistance : NetworkBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        if (IsOwner)
+            PlayersManager.Instance.ownerCalculateDistance = this;
+    }
+
     private void FixedUpdate()
     {
         if (!IsOwner)
             return;
 
+        Vector3 correctedPosition = transform.position;
+
         foreach (Transform t in connectedPlayers)
         {
-            float distance = Vector3.Distance(transform.position, t.position);
-            
+            if (t == null) continue;
+
+            Vector3 direction = correctedPosition - t.position;
+            float distance = direction.magnitude;
+
             if (distance > _maxDistance)
             {
-                if (_rigidbody.linearVelocity.magnitude > .1f)
-                {
-                    Vector3 directionToOther = (t.position - transform.position).normalized;
-                    
-                    _rigidbody.position = t.position - directionToOther * _maxDistance;
-                }
+                correctedPosition = t.position + direction.normalized * _maxDistance;
             }
         }
+
+        _rigidbody.MovePosition(correctedPosition);
     }
 }
