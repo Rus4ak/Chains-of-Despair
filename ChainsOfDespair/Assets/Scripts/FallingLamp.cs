@@ -8,10 +8,20 @@ public class FallingLamp : NetworkBehaviour
 
     private AudioSource _fallingSound;
     private bool _isFalling;
+    private Rigidbody _rigibody;
 
     private void Awake()
     {
         _fallingSound = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if (_rigibody == null)
+            return;
+
+        if (_isFalling && _rigibody.IsSleeping())
+            _isFalling = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,8 +44,8 @@ public class FallingLamp : NetworkBehaviour
         if (TryGetComponent<Rigidbody>(out _))
             return;
 
-        Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-        rb.AddForce(Vector3.down * _fallingForce, ForceMode.Impulse);
+        _rigibody = gameObject.AddComponent<Rigidbody>();
+        _rigibody.AddForce(Vector3.down * _fallingForce, ForceMode.Impulse);
         _isFalling = true;
     }
 
