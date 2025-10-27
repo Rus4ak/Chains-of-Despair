@@ -37,6 +37,9 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
+        if (!PlayersManager.Instance.ownerPlayer.isMove)
+            return;
+
         MoveAnimation();
 
         if (!IsOwner)
@@ -53,6 +56,10 @@ public class PlayerMovement : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        if (PlayersManager.Instance.ownerPlayer != null)
+            if (!PlayersManager.Instance.ownerPlayer.isMove)
+                return;
+
         _isOnGround = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundCheckLayer);
 
         if (_isOnGround)

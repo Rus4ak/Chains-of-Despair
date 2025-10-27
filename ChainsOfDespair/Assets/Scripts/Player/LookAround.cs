@@ -27,7 +27,7 @@ public class LookAround : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsOwner)
+        if (!IsOwner || !PlayersManager.Instance.ownerPlayer.isMove)
             return;
 
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
@@ -37,7 +37,7 @@ public class LookAround : NetworkBehaviour
     
     private void LateUpdate()
     {
-        if (!IsOwner)
+        if (!IsOwner || !PlayersManager.Instance.ownerPlayer.isMove)
             return;
 
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;

@@ -12,6 +12,9 @@ public class PlayerInitialize : NetworkBehaviour
 
     private Rigidbody _rigidbody;
 
+    public bool isAlive = true;
+    public bool isMove = true;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();

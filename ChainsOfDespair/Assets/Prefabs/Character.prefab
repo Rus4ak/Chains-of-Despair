@@ -524,6 +524,8 @@ MonoBehaviour:
   _backJoint: {fileID: 5594583710129654401}
   _canvas: {fileID: 8879029483010152018}
   _inventory: {fileID: 2217263246842546661}
+  isAlive: 1
+  isMove: 1
 --- !u!114 &-4959617762275978998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,8 +594,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _staminaUI: {fileID: 3695200020585803107}
   _staminaSlider: {fileID: 5005636207236151963}
-  _drainRate: 0.1
-  _recoveryRate: 0.05
+  _drainRate: 0.12
+  _recoveryRate: 0.1
   isCanRun: 1
 --- !u!1 &1065793480238150248
 GameObject:
