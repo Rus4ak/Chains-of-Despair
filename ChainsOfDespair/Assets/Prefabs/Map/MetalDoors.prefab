@@ -359,9 +359,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7713508642598506594}
+    - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3602178812291222279}
     - targetCorrespondingSourceObject: {fileID: -516098083770646512, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8415035492479769062}
+    - targetCorrespondingSourceObject: {fileID: -516098083770646512, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5146786946816196277}
   m_SourcePrefab: {fileID: 100100000, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
 --- !u!4 &334767532635876681 stripped
 Transform:
@@ -569,6 +575,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019999996, y: 0.023737546, z: 0.019999998}
   m_Center: {x: -0.010000033, y: -0.0017057016, z: 0.0006294888}
+--- !u!208 &3602178812291222279
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999957783968614016}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.010000001, y: 0.014, z: 0.010000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.010000001, y: 0.001, z: 0.001}
+  m_TimeToStationary: 0.5
 --- !u!4 &4288674344633979663 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
@@ -600,3 +622,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.019999994, y: 0.023737546, z: 0.019999998}
   m_Center: {x: 0.010000012, y: -0.0017057016, z: 0.00062948925}
+--- !u!208 &5146786946816196277
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4960895737276101876}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.010000001, y: 0.014, z: 0.010000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.010000001, y: 0, z: 0.001}
+  m_TimeToStationary: 0.5
