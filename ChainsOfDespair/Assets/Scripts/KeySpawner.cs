@@ -6,9 +6,19 @@ public class KeySpawner : NetworkBehaviour
 {
     [SerializeField] private GameObject _keyPrefab;
 
-    public static List<Door> lockedDoors = new List<Door>();
-    public static List<SpawnKeyPos> spawnPositions = new List<SpawnKeyPos>();
-    public static bool isSpawned = false;
+    public List<Door> lockedDoors = new List<Door>();
+    public List<SpawnKeyPos> spawnPositions = new List<SpawnKeyPos>();
+    public bool isSpawned = false;
+
+    public static KeySpawner Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+            Destroy(Instance.gameObject);
+
+        Instance = this;
+    }
 
     private void Start()
     {

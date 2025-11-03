@@ -2,14 +2,13 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Chain : NetworkBehaviour
+public class Chain : MonoBehaviour
 {
     [SerializeField] private int _segments = 19;
     [SerializeField] private float _segmentLength = 2f;
     [SerializeField] private int _solveIterations = 20;
     [SerializeField] private GameObject _linkPrefab;
 
-    //private float _maxDistance = 10f;
     private AudioSource _audioSource;
     private Transform _start;
     private Transform _end;
@@ -35,6 +34,11 @@ public class Chain : NetworkBehaviour
         _points = new List<Vector3>();
         _oldPoints = new List<Vector3>();
         _links = new List<GameObject>();
+
+        foreach (var p in players)
+        {
+            p.GetComponent<PlayerInitialize>().chainGO.Add(gameObject);
+        }
 
         for (int i = 0; i < _segments; i++)
         {
@@ -118,7 +122,7 @@ public class Chain : NetworkBehaviour
             _links[i].transform.position = midPoint;
 
             Vector3 dir = (posB - posA).normalized;
-            
+
             Quaternion rot = Quaternion.LookRotation(dir);
 
             if (i % 2 == 1)

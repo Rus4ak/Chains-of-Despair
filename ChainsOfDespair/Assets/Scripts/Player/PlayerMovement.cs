@@ -37,6 +37,9 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
+        if (PlayersManager.Instance.ownerPlayer == null)
+            return;
+
         if (!PlayersManager.Instance.ownerPlayer.isMove)
             return;
 

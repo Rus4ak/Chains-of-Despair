@@ -7,9 +7,14 @@ public class LobbyManager : NetworkBehaviour
 
     private void Start()
     {
-        if (!isStartedSession.Value)
+        if (!isStartedSession.Value && !NetworkManager.Singleton.IsListening)
         {
             StartSession();
+        }
+
+        else if (!isStartedSession.Value && NetworkManager.Singleton.IsListening)
+        {
+            isStartedSession.Value = true;
         }
     }
 

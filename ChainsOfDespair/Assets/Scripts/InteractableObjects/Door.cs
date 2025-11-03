@@ -24,13 +24,13 @@ public class Door : NetworkBehaviour, IInteractable
 
     public string KeyName => _keyName;
 
-    private void Awake()
+    private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         
-        if (!KeySpawner.isSpawned)
+        if (!KeySpawner.Instance.isSpawned)
             if (!_keyName.IsNullOrEmpty())
-                KeySpawner.lockedDoors.Add(this);
+                KeySpawner.Instance.lockedDoors.Add(this);
     }
 
     public string GetInteractionPrompt()

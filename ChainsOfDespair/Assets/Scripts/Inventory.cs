@@ -8,6 +8,7 @@ public class Inventory : NetworkBehaviour
     [SerializeField] private Transform _camera;
     [SerializeField] private float _throwForce;
     [SerializeField] private GameObject[] _availableObjects;
+    [SerializeField] private PlayerDied _playerDied;
 
     private int _selectedSlot = 0;
     private string[] _slotObjectsName = new string[3];
@@ -140,6 +141,25 @@ public class Inventory : NetworkBehaviour
                 SelectSlot(0);
             else
                 SelectSlot(_selectedSlot + 1);
+        }
+    }
+
+    private void OnEnable()
+    {
+        _playerDied.OnDeath += PlayerDead;
+    }
+
+    private void PlayerDead()
+    {
+        for (int i = 0; i < _availableObjects.Length; i++)
+        {
+            foreach (string slotName in _slotObjectsName)
+            {
+                if (_availableObjects[i].name == slotName)
+                {
+                    SpawnObjectServerRpc(i);
+                }
+            }
         }
     }
 }

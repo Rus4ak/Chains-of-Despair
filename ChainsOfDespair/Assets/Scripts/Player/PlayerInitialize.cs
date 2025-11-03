@@ -12,8 +12,9 @@ public class PlayerInitialize : NetworkBehaviour
 
     private Rigidbody _rigidbody;
 
-    public bool isAlive = true;
-    public bool isMove = true;
+    [HideInInspector] public List<GameObject> chainGO;
+    [HideInInspector] public bool isAlive = true;
+    [HideInInspector] public bool isMove = true;
 
     private void Awake()
     {
@@ -23,12 +24,11 @@ public class PlayerInitialize : NetworkBehaviour
     private void Start()
     {
         List<PlayerInitialize> players = PlayersManager.Instance.players;
-
+        
         if (players.Count > 0)
         {
             GameObject chainGO = Instantiate(_chain);
             Chain chain = chainGO.GetComponent<Chain>();
-
             List<Rigidbody> playersRb = new List<Rigidbody>()
             {
                 GetComponent<Rigidbody>(),
@@ -41,7 +41,10 @@ public class PlayerInitialize : NetworkBehaviour
             players[players.Count - 1].GetComponent<CalculateDistance>().connectedPlayers.Add(transform);
         }
 
-        players.Add(this);
+        if (!PlayersManager.Instance.players.Contains(this))
+        {
+            players.Add(this);
+        }
 
         if (IsOwner)
         {
@@ -58,5 +61,51 @@ public class PlayerInitialize : NetworkBehaviour
         {
             _rigidbody.position = position;
         }
+    }
+
+    public void DestroyChain(NetworkObjectReference diedPlayer)
+    {
+        DestroyChainServerRpc(diedPlayer);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DestroyChainServerRpc(NetworkObjectReference objRef)
+    {
+        DestroyChainClientRpc(objRef);
+    }
+
+    [ClientRpc]
+    private void DestroyChainClientRpc(NetworkObjectReference diedPlayerRef)
+    {
+        
+        if (!diedPlayerRef.TryGet(out NetworkObject diedPlayer))
+            return;
+
+        foreach (var player in PlayersManager.Instance.players)
+        {
+            CalculateDistance calculateDistance = player.GetComponent<CalculateDistance>();
+
+            for (int i = 0; i < calculateDistance.connectedPlayers.Count; i++)
+            {
+            
+                var connectedPlayer = calculateDistance.connectedPlayers[i];
+
+                if (connectedPlayer == null)
+                    continue;
+
+                if (connectedPlayer.GetComponent<NetworkObject>().NetworkObjectId == diedPlayer.NetworkObjectId)
+                {
+                    calculateDistance.connectedPlayers.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < chainGO.Count; i++)
+        {
+            Destroy(chainGO[i]);
+        }
+
+        chainGO.Clear();
     }
 }

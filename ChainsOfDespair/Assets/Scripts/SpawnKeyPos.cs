@@ -7,9 +7,9 @@ public class SpawnKeyPos : MonoBehaviour
 
     public string[] KeysCantSpawn => _keysCantSpawn;
 
-    private void Awake()
+    private void Start()
     {
-        if (!KeySpawner.isSpawned)
-            KeySpawner.spawnPositions.Add(this);
+        if (!KeySpawner.Instance.isSpawned)
+            KeySpawner.Instance.spawnPositions.Add(this);
     }
 }

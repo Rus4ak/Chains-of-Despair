@@ -26,7 +26,7 @@ public class CalculateDistance : NetworkBehaviour
     {
         if (!IsOwner)
             return;
-
+        
         Vector3 correctedPosition = transform.position;
 
         foreach (Transform t in connectedPlayers)

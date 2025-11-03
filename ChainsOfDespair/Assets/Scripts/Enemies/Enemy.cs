@@ -31,20 +31,14 @@ public class Enemy : NetworkBehaviour
     }
 
     private void Start()
-    {
-        if (!IsServer)
-            return;
-        
+    {   
         ChangeState(Walk());
         StartCoroutine(IsSeePlayer());
     }
 
     private void Update()
     {
-        if (!IsServer)
-            return;
-
-        if (!_isWarning)
+        if (!_isWarning && !_isAttack)
         {
             if (_isSeePlayer)
             {
@@ -62,7 +56,7 @@ public class Enemy : NetworkBehaviour
                     _isAttack = false;
                     _isSeePlayer = false;
                     _agent.speed = 0;
-                    _animator.SetBool("IsAttack", true);
+                    ChangeAnimation("IsAttack", true);
 
                     PlayerInitialize player = _attackedPlayer.GetComponent<PlayerInitialize>();
                     player.isMove = false;
@@ -86,13 +80,22 @@ public class Enemy : NetworkBehaviour
 
     private IEnumerator Walk()
     {
+        if (!IsServer)
+            StopCoroutine(Walk());
+
         while (true)
         {
+            if (!_agent.isActiveAndEnabled)
+            {
+                yield return new WaitForSeconds(1);
+                continue;
+            }
+
             int randomAction = Random.Range(0, 2);
             
             if (randomAction == 0)
             {
-                _animator.SetBool("IsWalk", false);
+                ChangeAnimation("IsWalk", false);
                 _agent.speed = 0;
 
                 yield return new WaitForSeconds(3);
@@ -100,7 +103,7 @@ public class Enemy : NetworkBehaviour
 
             else if (randomAction == 1)
             {
-                _animator.SetBool("IsWalk", true);
+                ChangeAnimation("IsWalk", true);
 
                 Vector3 randomPos = new Vector3(Random.Range(_minMapPos.position.x, _maxMapPos.position.x),
                     _minMapPos.position.y, Random.Range(_minMapPos.position.z, _maxMapPos.position.z));
@@ -117,22 +120,22 @@ public class Enemy : NetworkBehaviour
     {
         _agent.speed = 0;
         transform.LookAt(_attackedPlayer);
-        _animator.SetBool("IsWarning", true);
+        ChangeAnimation("IsWarning", true);
 
         yield return new WaitForSeconds(_warningTime);
 
         _isWarning = false;
-        _animator.SetBool("IsWarning", false);
+        ChangeAnimation("IsWarning", false);
 
         if (_isSeePlayer)
         {
             _isAttack = true;
-            _animator.SetBool("IsRun", true);
+            ChangeAnimation("IsRun", true);
         }
         else
         {
             _isAttack = false;
-            _animator.SetBool("IsRun", false);
+            ChangeAnimation("IsRun", false);
             ChangeState(Walk());
         }
     }
@@ -179,13 +182,31 @@ public class Enemy : NetworkBehaviour
         _currentCoroutine = StartCoroutine(newState);
     }
 
+    private void ChangeAnimation(string name, bool value)
+    {
+        if (!IsServer)
+            return;
+
+        _animator.SetBool(name, value);
+    }
+
     public void StopAttack()
     {
-        _animator.SetBool("IsRun", false);
-        _animator.SetBool("IsAttack", false);
-        _attackedPlayer.gameObject.SetActive(false);
-        _attackedPlayer = null;
+        ChangeAnimation("IsRun", false);
+        ChangeAnimation("IsAttack", false);
+
+        AttackPlayerClientRpc();
+
         ChangeState(Walk());
-        ScreenFade.Instance.FadeOut();
+    }
+
+    [ClientRpc]
+    private void AttackPlayerClientRpc()
+    {
+        if (_attackedPlayer != null)
+        {
+            _attackedPlayer.GetComponent<PlayerDied>().Died();
+            _attackedPlayer = null;
+        }
     }
 }

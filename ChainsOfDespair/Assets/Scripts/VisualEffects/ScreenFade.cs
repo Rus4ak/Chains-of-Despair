@@ -13,10 +13,10 @@ public class ScreenFade : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        if (Instance != null)
+            Destroy(Instance.gameObject);
+        
+        Instance = this;
 
         DontDestroyOnLoad(gameObject);
     }
@@ -52,6 +52,7 @@ public class ScreenFade : MonoBehaviour
 
         isFade = true;
 
-        PlayersManager.Instance.ownerCalculateDistance.enabled = true;
+        if (PlayersManager.Instance.ownerCalculateDistance != null)
+            PlayersManager.Instance.ownerCalculateDistance.enabled = true;
     }
 }
