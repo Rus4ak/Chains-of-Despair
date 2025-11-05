@@ -15,6 +15,10 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private float _warningTime;
     [SerializeField] private Transform _minMapPos;
     [SerializeField] private Transform _maxMapPos;
+    [Header("Sounds")]
+    [SerializeField] private AudioSource _stepsSound;
+    [SerializeField] private AudioSource _warningSound;
+    [SerializeField] private AudioSource[] _growlSounds;
 
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -34,10 +38,23 @@ public class Enemy : NetworkBehaviour
     {   
         ChangeState(Walk());
         StartCoroutine(IsSeePlayer());
+        StartCoroutine(PlayGrowlSound());
     }
 
     private void Update()
     {
+        if (_agent.speed > 0 && !_stepsSound.isPlaying)
+        {
+            _stepsSound.pitch = .7f;
+            _stepsSound.Play();
+        }
+
+        if (_agent.speed > _speed)
+            _stepsSound.pitch = .85f;
+
+        if (_agent.speed == 0)
+            _stepsSound.Stop();
+
         if (!_isWarning && !_isAttack)
         {
             if (_isSeePlayer)
@@ -118,6 +135,9 @@ public class Enemy : NetworkBehaviour
 
     private IEnumerator Warning()
     {
+        if (!_isAttack)
+            _warningSound.Play();
+
         _agent.speed = 0;
         transform.LookAt(_attackedPlayer);
         ChangeAnimation("IsWarning", true);
@@ -207,6 +227,30 @@ public class Enemy : NetworkBehaviour
         {
             _attackedPlayer.GetComponent<PlayerDied>().Died();
             _attackedPlayer = null;
+        }
+    }
+
+    private IEnumerator PlayGrowlSound()
+    {
+        while (true)
+        {
+            float growlVolume;
+
+            if (_isAttack && _isSeePlayer)
+            {
+                growlVolume = 1.2f;
+                yield return new WaitForSeconds(Random.Range(2f, 3f));
+            }
+            else
+            {
+                growlVolume = 1f;
+                yield return new WaitForSeconds(Random.Range(3f, 15f));
+            }
+
+            int randomGrowlIndex = Random.Range(0, _growlSounds.Length);
+
+            _growlSounds[randomGrowlIndex].volume *= growlVolume;
+            _growlSounds[randomGrowlIndex].Play();
         }
     }
 }

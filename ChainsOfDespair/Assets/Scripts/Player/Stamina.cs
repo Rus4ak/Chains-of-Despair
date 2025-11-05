@@ -7,6 +7,7 @@ public class Stamina : MonoBehaviour
     [SerializeField] private Slider _staminaSlider;
     [SerializeField] private float _drainRate = 0.2f;
     [SerializeField] private float _recoveryRate = 0.1f;
+    [SerializeField] private AudioSource _heavyBreathingSound;
 
     private bool _isStaminaUsing = false;
     private float _sliderSpeed;
@@ -39,6 +40,9 @@ public class Stamina : MonoBehaviour
 
     public void StopUse()
     {
+        if (!_heavyBreathingSound.isPlaying && _staminaSlider.value == 0)
+            _heavyBreathingSound.Play();
+        
         _sliderSpeed = _recoveryRate;
         _isStaminaUsing = true;
     }
