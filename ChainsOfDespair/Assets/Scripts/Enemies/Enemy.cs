@@ -50,7 +50,7 @@ public class Enemy : NetworkBehaviour
         }
 
         if (_agent.speed > _speed)
-            _stepsSound.pitch = .85f;
+            _stepsSound.pitch = .9f;
 
         if (_agent.speed == 0)
             _stepsSound.Stop();

@@ -20,7 +20,7 @@ public class KeySpawner : NetworkBehaviour
         Instance = this;
     }
 
-    private void Start()
+    public void SpawnKeys()
     {
         if (IsServer)
         {
@@ -42,7 +42,7 @@ public class KeySpawner : NetworkBehaviour
                     if (isCanSpawn)
                         break;
                 }
-
+                
                 Vector3 randomPos = randomSpawnKeyPos.transform.position;
                 GameObject key = Instantiate(_keyPrefab, randomPos, _keyPrefab.transform.rotation);
                 key.GetComponent<NetworkObject>().Spawn();

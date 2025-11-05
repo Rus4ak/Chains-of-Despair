@@ -28,6 +28,7 @@ public class StartedDoor : NetworkBehaviour, IInteractable
     [ServerRpc(RequireOwnership = false)]
     private void StartGameServerRpc()
     {
+        KeySpawner.Instance.SpawnKeys();
         StartGameClientRpc();
     }
 
