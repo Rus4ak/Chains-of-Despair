@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class ScreenFade : MonoBehaviour
 {
     [SerializeField] private Image _blackScreen;
-    [SerializeField] private float _fadeDuration = 1.5f;
 
     [HideInInspector] public bool isFade;
 
@@ -21,15 +20,15 @@ public class ScreenFade : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void FadeOut()
+    public void FadeOut(float fadeDuration)
     {
         isFade = false;
-        StartCoroutine(Fade(0f, 1f));
+        StartCoroutine(Fade(0f, 1f, fadeDuration));
     }
 
-    public void FadeIn()
+    public void FadeIn(float fadeDuration)
     {
-        StartCoroutine(Fade(1f, 0f));
+        StartCoroutine(Fade(1f, 0f, fadeDuration));
     }
 
     private void OnDisable()
@@ -37,14 +36,14 @@ public class ScreenFade : MonoBehaviour
         StopAllCoroutines();
     }
 
-    private IEnumerator Fade(float startAlpha, float endAlpha)
+    private IEnumerator Fade(float startAlpha, float endAlpha, float fadeDuration)
     {
         float time = 0f;
         Color color = _blackScreen.color;
-        while (time < _fadeDuration)
+        while (time < fadeDuration)
         {
             time += Time.deltaTime;
-            float t = time / _fadeDuration;
+            float t = time / fadeDuration;
             color.a = Mathf.Lerp(startAlpha, endAlpha, t);
             _blackScreen.color = color;
             yield return null;

@@ -213,6 +213,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1082271958561512970, guid: 25b679f0b70b0d048a9f35776351876b, type: 3}
+      propertyPath: m_Name
+      value: Hips
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082271958561512970, guid: 25b679f0b70b0d048a9f35776351876b, type: 3}
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}

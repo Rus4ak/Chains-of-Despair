@@ -24,6 +24,7 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 _move;
     private Stamina _staminaManager;
     private bool _isPlayEndJumpSound;
+    private PlayerInitialize _playerInitialize;
 
     private NetworkVariable<Vector3> _localMove = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> _isRun = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -33,14 +34,12 @@ public class PlayerMovement : NetworkBehaviour
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _staminaManager = GetComponent<Stamina>();
+        _playerInitialize = GetComponent<PlayerInitialize>();
     }
 
     private void Update()
     {
-        if (PlayersManager.Instance.ownerPlayer == null)
-            return;
-
-        if (!PlayersManager.Instance.ownerPlayer.isMove)
+        if (!_playerInitialize.isMove)
             return;
 
         MoveAnimation();

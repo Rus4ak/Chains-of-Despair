@@ -45,12 +45,12 @@ public class StartedDoor : NetworkBehaviour, IInteractable
         
         ownerPlayer.Spawn(position);
 
-        ScreenFade.Instance.FadeIn();
+        ScreenFade.Instance.FadeIn(1.5f);
     }
 
     private IEnumerator StartFade()
     {
-        ScreenFade.Instance.FadeOut();
+        ScreenFade.Instance.FadeOut(1.5f);
 
         while (!ScreenFade.Instance.isFade)
         {

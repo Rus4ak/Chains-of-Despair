@@ -15,6 +15,7 @@ public class PlayerInitialize : NetworkBehaviour
     [HideInInspector] public List<GameObject> chainGO;
     [HideInInspector] public bool isAlive = true;
     [HideInInspector] public bool isMove = true;
+    [HideInInspector] public GameObject ragdoll;
 
     private void Awake()
     {
