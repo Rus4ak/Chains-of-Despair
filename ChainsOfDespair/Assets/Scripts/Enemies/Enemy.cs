@@ -18,11 +18,11 @@ public class Enemy : NetworkBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioSource _stepsSound;
     [SerializeField] private AudioSource _warningSound;
+    [SerializeField] private AudioSource _attackSound;
     [SerializeField] private AudioSource[] _growlSounds;
 
+    protected Transform _attackedPlayer;
     private NavMeshAgent _agent;
-    private Animator _animator;
-    private Transform _attackedPlayer;
     private bool _isWarning;
     private bool _isAttack;
     private bool _isSeePlayer;
@@ -31,7 +31,6 @@ public class Enemy : NetworkBehaviour
     protected virtual void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -70,16 +69,7 @@ public class Enemy : NetworkBehaviour
             {
                 if (Vector3.Distance(transform.position, _attackedPlayer.position) < _attackDistance)
                 {
-                    _isAttack = false;
-                    _isSeePlayer = false;
-                    _agent.speed = 0;
-                    ChangeAnimation("IsAttack", true);
-
-                    PlayerInitialize player = _attackedPlayer.GetComponent<PlayerInitialize>();
-                    player.isMove = false;
-                    player.isAlive = false;
-                    
-                    _attackedPlayer.LookAt(transform.position);
+                    Attack();
                 }
                 else
                 {
@@ -112,7 +102,8 @@ public class Enemy : NetworkBehaviour
             
             if (randomAction == 0)
             {
-                ChangeAnimation("IsWalk", false);
+                StopWalk();
+                
                 _agent.speed = 0;
 
                 yield return new WaitForSeconds(3);
@@ -120,7 +111,7 @@ public class Enemy : NetworkBehaviour
 
             else if (randomAction == 1)
             {
-                ChangeAnimation("IsWalk", true);
+                StartWalk();
 
                 Vector3 randomPos = new Vector3(Random.Range(_minMapPos.position.x, _maxMapPos.position.x),
                     _minMapPos.position.y, Random.Range(_minMapPos.position.z, _maxMapPos.position.z));
@@ -128,7 +119,7 @@ public class Enemy : NetworkBehaviour
                 _agent.speed = _speed;
                 _agent.destination = randomPos;
 
-                yield return new WaitForSeconds(10);
+                yield return new WaitForSeconds(15);
             }
         }
     }
@@ -140,22 +131,26 @@ public class Enemy : NetworkBehaviour
 
         _agent.speed = 0;
         transform.LookAt(_attackedPlayer);
-        ChangeAnimation("IsWarning", true);
+
+        StartWarning();
 
         yield return new WaitForSeconds(_warningTime);
 
         _isWarning = false;
-        ChangeAnimation("IsWarning", false);
+        
+        StopWarning();
 
         if (_isSeePlayer)
         {
             _isAttack = true;
-            ChangeAnimation("IsRun", true);
+            
+            StartRun();
         }
         else
         {
             _isAttack = false;
-            ChangeAnimation("IsRun", false);
+
+            StopRun();
             ChangeState(Walk());
         }
     }
@@ -199,22 +194,12 @@ public class Enemy : NetworkBehaviour
     {
         if (_currentCoroutine != null)
             StopCoroutine(_currentCoroutine);
+
         _currentCoroutine = StartCoroutine(newState);
     }
 
-    private void ChangeAnimation(string name, bool value)
+    public virtual void StopAttack()
     {
-        if (!IsServer)
-            return;
-
-        _animator.SetBool(name, value);
-    }
-
-    public void StopAttack()
-    {
-        ChangeAnimation("IsRun", false);
-        ChangeAnimation("IsAttack", false);
-
         AttackPlayerClientRpc();
 
         ChangeState(Walk());
@@ -253,4 +238,26 @@ public class Enemy : NetworkBehaviour
             _growlSounds[randomGrowlIndex].Play();
         }
     }
+
+    protected virtual void Attack()
+    {
+        _isAttack = false;
+        _isSeePlayer = false;
+        _agent.speed = 0;
+
+        PlayerInitialize player = _attackedPlayer.GetComponent<PlayerInitialize>();
+        player.isMove = false;
+        player.isAlive = false;
+
+        _attackedPlayer.LookAt(transform.position);
+
+        _attackSound.Play();
+    }
+
+    protected virtual void StartWalk() { }
+    protected virtual void StopWalk() { }
+    protected virtual void StartWarning() { }
+    protected virtual void StopWarning() { }
+    protected virtual void StartRun() { }
+    protected virtual void StopRun() { }
 }

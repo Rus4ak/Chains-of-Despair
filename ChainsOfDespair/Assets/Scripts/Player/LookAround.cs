@@ -10,6 +10,8 @@ public class LookAround : NetworkBehaviour
     
     private float xRotation;
 
+    public Transform Camera => _camera;
+
     private void Start()
     {
         if (!IsOwner && LobbyManager.isStartedSession.Value)
