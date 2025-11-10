@@ -9,6 +9,7 @@ public class StartedDoor : NetworkBehaviour, IInteractable
     [SerializeField] private Vector2 _maxPos;
 
     private AudioSource _audioSource;
+    private bool _isStarted = false;
 
     private void Awake()
     {
@@ -22,13 +23,17 @@ public class StartedDoor : NetworkBehaviour, IInteractable
 
     public void Interact()
     {
+        if (_isStarted)
+            return;
+        
         StartFadeServerRpc();
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void StartGameServerRpc()
+    private void StartGame()
     {
         KeySpawner.Instance.SpawnKeys();
+        EnemySpawner.Instance.Spawn();
+
         StartGameClientRpc();
     }
 
@@ -58,7 +63,8 @@ public class StartedDoor : NetworkBehaviour, IInteractable
             yield return null;
         }
 
-        StartGameServerRpc();
+        if (IsServer)
+            StartGame();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -70,6 +76,7 @@ public class StartedDoor : NetworkBehaviour, IInteractable
     [ClientRpc]
     private void StartFadeClientRpc()
     {
+        _isStarted = true;
         _audioSource.Play();
         StartCoroutine(StartFade());
     }

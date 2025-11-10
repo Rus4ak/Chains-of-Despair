@@ -13,14 +13,14 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private float _viewDistance;
     [SerializeField] private LayerMask _obstacleMask;
     [SerializeField] private float _warningTime;
-    [SerializeField] private Transform _minMapPos;
-    [SerializeField] private Transform _maxMapPos;
     [Header("Sounds")]
     [SerializeField] private AudioSource _stepsSound;
     [SerializeField] private AudioSource _warningSound;
     [SerializeField] private AudioSource _attackSound;
     [SerializeField] private AudioSource[] _growlSounds;
 
+    private Transform _minMapPos;
+    private Transform _maxMapPos;
     protected Transform _attackedPlayer;
     private NavMeshAgent _agent;
     private bool _isWarning;
@@ -34,7 +34,10 @@ public class Enemy : NetworkBehaviour
     }
 
     private void Start()
-    {   
+    {
+        _minMapPos = GameObject.FindWithTag("MinMapPos").transform;
+        _maxMapPos = GameObject.FindWithTag("MaxMapPos").transform;
+
         ChangeState(Walk());
         StartCoroutine(IsSeePlayer());
         StartCoroutine(PlayGrowlSound());
