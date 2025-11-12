@@ -56,7 +56,9 @@ public class DeadCamera : MonoBehaviour
         if (_players[_targetIndex].isAlive)
             _target = _players[_targetIndex].transform;
         else
+        {
             _target = _players[_targetIndex].ragdoll.transform;
+        }
 
         transform.SetParent(_target);
     }

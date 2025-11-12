@@ -284,12 +284,23 @@ public class Enemy : NetworkBehaviour
     protected virtual void Attack()
     {
         _agent.speed = 0;
+        _attackSound.Play();
         
         PlayerInitialize attackedPlayer = _attackedPlayer.GetComponent<PlayerInitialize>();
+        attackedPlayer.transform.LookAt(transform.position);
+        
+        AttackClientRpc(attackedPlayer.NetworkObject);
+    }
+
+    [ClientRpc]
+    private void AttackClientRpc(NetworkObjectReference attackedPlayerRef)
+    {
+        if (!attackedPlayerRef.TryGet(out NetworkObject attackedPlayerObj))
+            return;
+
+        PlayerInitialize attackedPlayer = attackedPlayerObj.GetComponent<PlayerInitialize>();
         attackedPlayer.isMove = false;
         attackedPlayer.isAlive = false;
-        attackedPlayer.transform.LookAt(transform.position);
-        _attackSound.Play();
     }
 
     protected virtual void StartWalk() { }

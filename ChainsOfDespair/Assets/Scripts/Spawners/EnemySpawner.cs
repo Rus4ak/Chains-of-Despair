@@ -26,7 +26,7 @@ public class EnemySpawner : NetworkBehaviour
 
         //float count = Random.Range(_minSpawnCount, _maxSpawnCount);
 
-        GameObject enemy = Instantiate(_enemies[1], new Vector3(-18.8f, _enemies[1].transform.position.y, 0.45f), Quaternion.identity);
+        GameObject enemy = Instantiate(_enemies[0], new Vector3(-18.8f, _enemies[0].transform.position.y, 0.45f), Quaternion.identity);
         enemy.GetComponent<NetworkObject>().Spawn();
 
         //for (int i = 0; i < count; i++)
