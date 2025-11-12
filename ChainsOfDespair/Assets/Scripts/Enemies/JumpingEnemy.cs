@@ -12,18 +12,20 @@ public class JumpingEnemy : Enemy
 
     protected override void Attack()
     {
-        base.Attack();
-
         _camera = _attackedPlayer.GetComponent<LookAround>().Camera;
         
         Invoke(nameof(JumpServerRpc), .5f);
+        
+        base.Attack();
     }
 
     [ServerRpc(RequireOwnership = false)]
     private void JumpServerRpc()
     {
         if (!_isJumping)
+        {
             StartCoroutine(Jump());
+        }
     }
 
     private IEnumerator Jump()
@@ -48,7 +50,7 @@ public class JumpingEnemy : Enemy
         }
 
         _isJumping = false;
-
+        
         StopAttack();
     }
 }

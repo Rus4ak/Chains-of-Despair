@@ -23,21 +23,24 @@ public class EnemySpawner : NetworkBehaviour
     {
         if (!IsServer)
             return;
-        
-        float count = Random.Range(_minSpawnCount, _maxSpawnCount);
 
-        for (int i = 0; i < count; i++)
-        {
-            GameObject enemy = _enemies[Random.Range(0, _enemies.Length)];
+        //float count = Random.Range(_minSpawnCount, _maxSpawnCount);
 
-            Vector3 spawnPos = new Vector3(
-                Random.Range(_minPos.position.x, _maxPos.position.x),
-                enemy.transform.position.y,
-                Random.Range(_minPos.position.z, _maxPos.position.z)
-                );
+        GameObject enemy = Instantiate(_enemies[1], new Vector3(-18.8f, _enemies[1].transform.position.y, 0.45f), Quaternion.identity);
+        enemy.GetComponent<NetworkObject>().Spawn();
 
-            GameObject spawnedEnemy = Instantiate(enemy, spawnPos, Quaternion.identity);
-            spawnedEnemy.GetComponent<NetworkObject>().Spawn();
-        }
+        //for (int i = 0; i < count; i++)
+        //{
+        //    GameObject enemy = _enemies[Random.Range(0, _enemies.Length)];
+
+        //    Vector3 spawnPos = new Vector3(
+        //        Random.Range(_minPos.position.x, _maxPos.position.x),
+        //        enemy.transform.position.y,
+        //        Random.Range(_minPos.position.z, _maxPos.position.z)
+        //        );
+
+        //    GameObject spawnedEnemy = Instantiate(enemy, spawnPos, Quaternion.identity);
+        //    spawnedEnemy.GetComponent<NetworkObject>().Spawn();
+        //}
     }
 }

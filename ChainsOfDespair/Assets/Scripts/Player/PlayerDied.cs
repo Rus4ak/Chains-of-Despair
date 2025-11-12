@@ -17,8 +17,16 @@ public class PlayerDied : NetworkBehaviour
 
     public void Died()
     {
+        DiedClientRpc();
+    }
+
+    [ClientRpc]
+    private void DiedClientRpc()
+    {
         if (IsOwner)
+        {
             OnDeath?.Invoke();
+        }
     }
 
     private void OnEnable()
@@ -70,17 +78,7 @@ public class PlayerDied : NetworkBehaviour
             yield return null;
         }
 
-        bool isAnyoneAlive = false;
-
-        foreach (PlayerInitialize player in PlayersManager.Instance.players)
-            if (player.isAlive)
-                isAnyoneAlive = true;
-
-        if (!isAnyoneAlive)
-        {
-            RestartGameServerRpc();
-            Destroy(ScreenFade.Instance.gameObject);
-        }
+        RestartGameServerRpc();
 
         ScreenFade.Instance.FadeIn(1.5f);
     }
@@ -88,6 +86,18 @@ public class PlayerDied : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void RestartGameServerRpc()
     {
-        PlayersManager.Instance.RestartGame();
+        bool isAnyoneAlive = false;
+
+        foreach (PlayerInitialize player in PlayersManager.Instance.players)
+        {
+            if (player.isAlive) 
+                isAnyoneAlive = true;
+        }
+
+        if (!isAnyoneAlive)
+        {
+            PlayersManager.Instance.RestartGame();
+            //Destroy(ScreenFade.Instance.gameObject);
+        }
     }
 }

@@ -86,7 +86,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 75
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 3616549472842997164}
   - component: {fileID: 412487143958324999}
   - component: {fileID: 869103380225295227}
+  - component: {fileID: 132098221012570602}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -274,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1870970388
+  GlobalObjectIdHash: 3310510452
   InScenePlacedSourceGlobalObjectIdHash: 153242162
   DeferredDespawnTick: 0
   Ownership: 1
@@ -370,8 +371,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   _warningTime: 3
-  _minMapPos: {fileID: 0}
-  _maxMapPos: {fileID: 0}
   _stepsSound: {fileID: 2836261125247818476}
   _warningSound: {fileID: 6015674617678388184}
   _attackSound: {fileID: 5666902243466726233}
@@ -379,6 +378,18 @@ MonoBehaviour:
   - {fileID: 4754617986571178586}
   - {fileID: 5399987324476213601}
   - {fileID: 8709895428855115672}
+--- !u!114 &132098221012570602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343449452816832684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bd68d2be6bef6641a36f602aff7a02b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &387781984263191772
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,7 +597,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 75
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -1029,7 +1040,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 75
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -1838,7 +1849,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 75
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -2057,7 +2068,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 75
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -2799,7 +2810,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 100
+  MaxDistance: 75
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

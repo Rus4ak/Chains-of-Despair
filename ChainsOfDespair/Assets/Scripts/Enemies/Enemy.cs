@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
@@ -26,15 +27,27 @@ public class Enemy : NetworkBehaviour
     private bool _isWarning;
     private bool _isAttack;
     private bool _isSeePlayer;
+    private bool _isCallAttack;
     private Coroutine _currentCoroutine;
+    private List<AudioSource> _sounds = new List<AudioSource>();
 
     protected virtual void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        
+        _sounds.Add(_stepsSound);
+        _sounds.Add(_warningSound);
+        _sounds.Add(_attackSound);
+
+        foreach (var sound in _growlSounds)
+            _sounds.Add(sound);
     }
 
     private void Start()
     {
+        if (!IsServer)
+            return;
+
         _minMapPos = GameObject.FindWithTag("MinMapPos").transform;
         _maxMapPos = GameObject.FindWithTag("MaxMapPos").transform;
 
@@ -57,6 +70,9 @@ public class Enemy : NetworkBehaviour
         if (_agent.speed == 0)
             _stepsSound.Stop();
 
+        if (!IsServer)
+            return;
+
         if (!_isWarning && !_isAttack)
         {
             if (_isSeePlayer)
@@ -72,7 +88,11 @@ public class Enemy : NetworkBehaviour
             {
                 if (Vector3.Distance(transform.position, _attackedPlayer.position) < _attackDistance)
                 {
-                    Attack();
+                    if (!_isCallAttack)
+                    {
+                        Attack();
+                        _isCallAttack = true;
+                    }
                 }
                 else
                 {
@@ -90,9 +110,6 @@ public class Enemy : NetworkBehaviour
 
     private IEnumerator Walk()
     {
-        if (!IsServer)
-            StopCoroutine(Walk());
-
         while (true)
         {
             if (!_agent.isActiveAndEnabled)
@@ -116,6 +133,12 @@ public class Enemy : NetworkBehaviour
             {
                 StartWalk();
 
+                if (_minMapPos == null || _maxMapPos == null)
+                {
+                    yield return new WaitForSeconds(1);
+                    continue;
+                }
+
                 Vector3 randomPos = new Vector3(Random.Range(_minMapPos.position.x, _maxMapPos.position.x),
                     _minMapPos.position.y, Random.Range(_minMapPos.position.z, _maxMapPos.position.z));
 
@@ -130,7 +153,7 @@ public class Enemy : NetworkBehaviour
     private IEnumerator Warning()
     {
         if (!_isAttack)
-            _warningSound.Play();
+            PlaySoundClientRpc(_warningSound.name);
 
         _agent.speed = 0;
         transform.LookAt(_attackedPlayer);
@@ -177,12 +200,17 @@ public class Enemy : NetworkBehaviour
                     {
                         if (!Physics.Raycast(transform.position + Vector3.up * 1.5f, dirToPlayer, distanceToPlayer, _obstacleMask))
                         {
-                            _attackedPlayer = player.transform;
+                            if (_attackedPlayer == null)
+                                _attackedPlayer = player.transform;
+                            
                             _isSeePlayer = true;
                             break;
                         }
                         else
                         {
+                            if (_attackedPlayer != null)
+                                _attackedPlayer = null;
+
                             _isSeePlayer = false;
                         }
                     }
@@ -203,19 +231,18 @@ public class Enemy : NetworkBehaviour
 
     public virtual void StopAttack()
     {
-        AttackPlayerClientRpc();
+        if (_attackedPlayer == null)
+            return;
 
+        _attackedPlayer.GetComponent<PlayerDied>().Died();
+        _attackedPlayer = null;
+
+        _isAttack = false;
+        _isSeePlayer = false;
+        _isWarning = false;
+        _isCallAttack = false;
+        
         ChangeState(Walk());
-    }
-
-    [ClientRpc]
-    private void AttackPlayerClientRpc()
-    {
-        if (_attackedPlayer != null)
-        {
-            _attackedPlayer.GetComponent<PlayerDied>().Died();
-            _attackedPlayer = null;
-        }
     }
 
     private IEnumerator PlayGrowlSound()
@@ -238,22 +265,30 @@ public class Enemy : NetworkBehaviour
             int randomGrowlIndex = Random.Range(0, _growlSounds.Length);
 
             _growlSounds[randomGrowlIndex].volume *= growlVolume;
-            _growlSounds[randomGrowlIndex].Play();
+            PlaySoundClientRpc(_growlSounds[randomGrowlIndex].name);
+        }
+    }
+
+    [ClientRpc]
+    private void PlaySoundClientRpc(string soundName)
+    {
+        foreach (AudioSource sound in _sounds)
+        {
+            if (sound.name == soundName)
+            {
+                sound.Play();
+            }
         }
     }
 
     protected virtual void Attack()
     {
-        _isAttack = false;
-        _isSeePlayer = false;
         _agent.speed = 0;
-
-        PlayerInitialize player = _attackedPlayer.GetComponent<PlayerInitialize>();
-        player.isMove = false;
-        player.isAlive = false;
-
-        _attackedPlayer.LookAt(transform.position);
-
+        
+        PlayerInitialize attackedPlayer = _attackedPlayer.GetComponent<PlayerInitialize>();
+        attackedPlayer.isMove = false;
+        attackedPlayer.isAlive = false;
+        attackedPlayer.transform.LookAt(transform.position);
         _attackSound.Play();
     }
 
