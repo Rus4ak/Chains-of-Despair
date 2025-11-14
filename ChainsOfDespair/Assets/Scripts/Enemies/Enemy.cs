@@ -299,6 +299,7 @@ public class Enemy : NetworkBehaviour
 
         _attackedPlayer.GetComponent<PlayerInitialize>().StartAttackClientRpc();
         _attackedPlayer.GetComponent<LookAround>().StartAttackClientRpc(NetworkObject);
+        _attackedPlayer.GetComponent<PlayerMovement>().StopAllAnimationsServerRpc();
     }
 
     protected virtual void StartWalk() { }

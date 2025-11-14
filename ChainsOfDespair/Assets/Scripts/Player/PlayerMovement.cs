@@ -202,6 +202,21 @@ public class PlayerMovement : NetworkBehaviour
         _animator.SetBool("IsJump", true);
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void StopAllAnimationsServerRpc()
+    {
+        StopAllAnimationsClientRpc();
+    }
+
+    [ClientRpc]
+    private void StopAllAnimationsClientRpc()
+    {
+        foreach (AnimatorControllerParameter param in _animator.parameters)
+        {
+            _animator.SetBool(param.name, false);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = _isOnGround ? Color.green : Color.red;
