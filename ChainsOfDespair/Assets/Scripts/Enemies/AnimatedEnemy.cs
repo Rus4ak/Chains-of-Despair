@@ -3,6 +3,8 @@ using UnityEngine;
 public class AnimatedEnemy : Enemy
 {
     private Animator _animator;
+    private bool _isWalk;
+    private bool _isRun;
 
     protected override void Awake()
     {
@@ -11,13 +13,43 @@ public class AnimatedEnemy : Enemy
         _animator = GetComponent<Animator>();
     }
 
+    protected override void Update()
+    {
+        if (!IsServer)
+            return;
+
+        if (_agent.velocity.sqrMagnitude > 0.1f)
+        {
+            if (_isWalk && !_animator.GetBool("IsWalk"))
+                _animator.SetBool("IsWalk", true);
+
+            if (_isRun && !_animator.GetBool("IsRun"))
+                _animator.SetBool("IsRun", true);
+        }
+        else
+        {
+            if (_isWalk && _animator.GetBool("IsWalk"))
+                _animator.SetBool("IsWalk", false);
+
+            if (_isRun && _animator.GetBool("IsRun"))
+                _animator.SetBool("IsRun", false);
+        }
+
+        base.Update();
+    }
+
     protected override void StopWalk()
     {
+        _isWalk = false;
+
         ChangeAnimation("IsWalk", false);
     }
 
     protected override void StartWalk()
     {
+        _isRun = false;
+        _isWalk = true;
+
         ChangeAnimation("IsWalk", true);
     }
 
@@ -33,11 +65,16 @@ public class AnimatedEnemy : Enemy
 
     protected override void StartRun()
     {
+        _isWalk = false;
+        _isRun = true;
+
         ChangeAnimation("IsRun", true);
     }
 
     protected override void StopRun()
     {
+        _isRun = false;
+
         ChangeAnimation("IsRun", false);
     }
 

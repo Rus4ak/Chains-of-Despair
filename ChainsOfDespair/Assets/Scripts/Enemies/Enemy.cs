@@ -25,7 +25,7 @@ public class Enemy : NetworkBehaviour
     private Transform _minMapPos;
     private Transform _maxMapPos;
     protected Transform _attackedPlayer;
-    private NavMeshAgent _agent;
+    protected NavMeshAgent _agent;
     private bool _isWarning;
     private bool _isAttack;
     private bool _isSeePlayer;
@@ -67,7 +67,7 @@ public class Enemy : NetworkBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (_agent.velocity.sqrMagnitude > 0.1f && !_stepsSound.isPlaying)
         {
