@@ -66,6 +66,9 @@ public class PlayerMovement : NetworkBehaviour
 
         if (_isOnGround)
         {
+            if (_animator.GetBool("IsJump") && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                _animator.SetBool("IsJump", false);
+
             if (_isPlayEndJumpSound)
                 _endJumpSound.Play();
 
@@ -182,11 +185,6 @@ public class PlayerMovement : NetworkBehaviour
         {
             _animator.SetBool("IsJump", false);
         }
-    }
-
-    public void StopJumpAnimation()
-    {
-        _animator.SetBool("IsJump", false);
     }
 
     [ServerRpc]
