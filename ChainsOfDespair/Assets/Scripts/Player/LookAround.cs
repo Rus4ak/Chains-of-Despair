@@ -9,6 +9,7 @@ public class LookAround : NetworkBehaviour
     [SerializeField] private Transform _neck;
     
     private float xRotation;
+    private Transform _attackEnemy;
 
     public Transform Camera => _camera;
 
@@ -29,8 +30,17 @@ public class LookAround : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsOwner || !PlayersManager.Instance.ownerPlayer.isMove)
+        if (!IsOwner)
             return;
+
+        if (_attackEnemy != null)
+        {
+            Vector3 target = _attackEnemy.position;
+            target.y = transform.position.y;
+
+            transform.LookAt(target);
+            return;
+        }
 
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
 
@@ -39,8 +49,15 @@ public class LookAround : NetworkBehaviour
     
     private void LateUpdate()
     {
-        if (!IsOwner || !PlayersManager.Instance.ownerPlayer.isMove)
+        if (!IsOwner)
             return;
+
+        if (_attackEnemy != null)
+        {
+            _camera.LookAt(_attackEnemy);
+            _neck.LookAt(_attackEnemy);
+            return;
+        }
 
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
 
@@ -49,5 +66,17 @@ public class LookAround : NetworkBehaviour
         _camera.localRotation = Quaternion.Euler(xRotation, 0, 0);
 
         _neck.localRotation = Quaternion.Euler(xRotation - 90, 0, 0);
+    }
+
+    [ClientRpc]
+    public void StartAttackClientRpc(NetworkObjectReference enemy)
+    {
+        if (IsOwner)
+        {
+            if (enemy.TryGet(out NetworkObject enemyObj))
+            {
+                _attackEnemy = enemyObj.GetComponent<Enemy>().midPoint;
+            }
+        }
     }
 }

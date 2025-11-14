@@ -109,4 +109,11 @@ public class PlayerInitialize : NetworkBehaviour
 
         chainGO.Clear();
     }
+
+    [ClientRpc]
+    public void StartAttackClientRpc()
+    {
+        isMove = false;
+        isAlive = false;
+    }
 }

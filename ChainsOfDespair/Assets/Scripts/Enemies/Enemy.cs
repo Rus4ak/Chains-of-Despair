@@ -20,6 +20,8 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private AudioSource _attackSound;
     [SerializeField] private AudioSource[] _growlSounds;
 
+    public Transform midPoint;
+
     private Transform _minMapPos;
     private Transform _maxMapPos;
     protected Transform _attackedPlayer;
@@ -54,6 +56,15 @@ public class Enemy : NetworkBehaviour
         ChangeState(Walk());
         StartCoroutine(IsSeePlayer());
         StartCoroutine(PlayGrowlSound());
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsServer)
+        {
+            _agent.updatePosition = false;
+            _agent.updateRotation = false;
+        }
     }
 
     private void Update()
@@ -285,22 +296,9 @@ public class Enemy : NetworkBehaviour
     {
         _agent.speed = 0;
         _attackSound.Play();
-        
-        PlayerInitialize attackedPlayer = _attackedPlayer.GetComponent<PlayerInitialize>();
-        attackedPlayer.transform.LookAt(transform.position);
-        
-        AttackClientRpc(attackedPlayer.NetworkObject);
-    }
 
-    [ClientRpc]
-    private void AttackClientRpc(NetworkObjectReference attackedPlayerRef)
-    {
-        if (!attackedPlayerRef.TryGet(out NetworkObject attackedPlayerObj))
-            return;
-
-        PlayerInitialize attackedPlayer = attackedPlayerObj.GetComponent<PlayerInitialize>();
-        attackedPlayer.isMove = false;
-        attackedPlayer.isAlive = false;
+        _attackedPlayer.GetComponent<PlayerInitialize>().StartAttackClientRpc();
+        _attackedPlayer.GetComponent<LookAround>().StartAttackClientRpc(NetworkObject);
     }
 
     protected virtual void StartWalk() { }

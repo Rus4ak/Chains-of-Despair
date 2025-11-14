@@ -441,6 +441,7 @@ MonoBehaviour:
   - {fileID: 8726013021408603250}
   - {fileID: 8075955954725155828}
   _neck: {fileID: 6603122223234527344}
+  _playerMesh: {fileID: 8257896646116972901}
 --- !u!114 &8257073778339598027
 MonoBehaviour:
   m_ObjectHideFlags: 0

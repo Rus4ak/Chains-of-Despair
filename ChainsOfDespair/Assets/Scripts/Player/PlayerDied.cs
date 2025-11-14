@@ -97,7 +97,6 @@ public class PlayerDied : NetworkBehaviour
         if (!isAnyoneAlive)
         {
             PlayersManager.Instance.RestartGame();
-            //Destroy(ScreenFade.Instance.gameObject);
         }
     }
 }
