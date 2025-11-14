@@ -69,7 +69,7 @@ public class Enemy : NetworkBehaviour
 
     private void Update()
     {
-        if (_agent.speed > 0 && !_stepsSound.isPlaying)
+        if (_agent.velocity.sqrMagnitude > 0.1f && !_stepsSound.isPlaying)
         {
             _stepsSound.pitch = .7f;
             _stepsSound.Play();
@@ -78,7 +78,7 @@ public class Enemy : NetworkBehaviour
         if (_agent.speed > _speed)
             _stepsSound.pitch = .9f;
 
-        if (_agent.speed == 0)
+        if (_agent.velocity.sqrMagnitude < 0.1f)
             _stepsSound.Stop();
 
         if (!IsServer)

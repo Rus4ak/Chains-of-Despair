@@ -78,7 +78,7 @@ public class PlayerDied : NetworkBehaviour
             yield return null;
         }
 
-        RestartGameServerRpc();
+        //RestartGameServerRpc();
 
         ScreenFade.Instance.FadeIn(1.5f);
     }

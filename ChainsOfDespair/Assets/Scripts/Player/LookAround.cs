@@ -69,13 +69,20 @@ public class LookAround : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void StartAttackClientRpc(NetworkObjectReference enemy)
+    public void StartAttackClientRpc(NetworkObjectReference enemyRef)
     {
         if (IsOwner)
         {
-            if (enemy.TryGet(out NetworkObject enemyObj))
+            if (enemyRef.TryGet(out NetworkObject enemyObj))
             {
-                _attackEnemy = enemyObj.GetComponent<Enemy>().midPoint;
+                if (enemyObj.TryGetComponent<Enemy>(out Enemy enemy))
+                {
+                    _attackEnemy = enemy.midPoint;
+                }
+                else
+                {
+                    _attackEnemy = enemyObj.GetComponentInChildren<Enemy>().midPoint;
+                }
             }
         }
     }
