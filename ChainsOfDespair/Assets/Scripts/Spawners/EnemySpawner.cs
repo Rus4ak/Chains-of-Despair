@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : NetworkBehaviour
 {
-    [SerializeField] private float _minSpawnCount;
-    [SerializeField] private float _maxSpawnCount;
-    [SerializeField] private Transform _minPos;
-    [SerializeField] private Transform _maxPos;
+    [SerializeField] private BoxCollider[] _spawnZones;
     [SerializeField] private GameObject[] _enemies;
 
     public static EnemySpawner Instance;
@@ -23,19 +20,17 @@ public class EnemySpawner : NetworkBehaviour
     {
         if (!IsServer)
             return;
-        //GameObject enemy = Instantiate(_enemies[0], new Vector3(-18.8f, _enemies[0].transform.position.y, 0.45f), Quaternion.identity);
-        //enemy.GetComponent<NetworkObject>().Spawn();
-
-        float count = Random.Range(_minSpawnCount, _maxSpawnCount);
-
-        for (int i = 0; i < count; i++)
+       
+        foreach (BoxCollider spawnZone in _spawnZones)
         {
             GameObject enemy = _enemies[Random.Range(0, _enemies.Length)];
 
+            Vector3 spawnZoneCenter = spawnZone.center + spawnZone.transform.position;
+
             Vector3 spawnPos = new Vector3(
-                Random.Range(_minPos.position.x, _maxPos.position.x),
+                Random.Range(spawnZoneCenter.x - spawnZone.size.x / 2f, spawnZoneCenter.x + spawnZone.size.x / 2f),
                 enemy.transform.position.y,
-                Random.Range(_minPos.position.z, _maxPos.position.z)
+                Random.Range(spawnZoneCenter.z - spawnZone.size.z / 2f, spawnZoneCenter.z + spawnZone.size.z / 2f)
                 );
 
             GameObject spawnedEnemy = Instantiate(enemy, spawnPos, Quaternion.identity);
