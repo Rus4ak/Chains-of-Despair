@@ -19,6 +19,8 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private AudioSource _warningSound;
     [SerializeField] private AudioSource _attackSound;
     [SerializeField] private AudioSource[] _growlSounds;
+    [SerializeField] private Vector2 _growlSoundIntervalWalk;
+    [SerializeField] private Vector2 _growlSoundIntervalRun;
 
     public Transform midPoint;
 
@@ -265,12 +267,12 @@ public class Enemy : NetworkBehaviour
             if (_isAttack && _isSeePlayer)
             {
                 growlVolume = 1.2f;
-                yield return new WaitForSeconds(Random.Range(2f, 3f));
+                yield return new WaitForSeconds(Random.Range(_growlSoundIntervalRun.x, _growlSoundIntervalRun.y));
             }
             else
             {
                 growlVolume = 1f;
-                yield return new WaitForSeconds(Random.Range(3f, 15f));
+                yield return new WaitForSeconds(Random.Range(_growlSoundIntervalWalk.x, _growlSoundIntervalWalk.y));
             }
 
             int randomGrowlIndex = Random.Range(0, _growlSounds.Length);

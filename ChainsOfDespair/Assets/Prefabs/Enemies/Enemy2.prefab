@@ -1890,7 +1890,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 75
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -3372,7 +3372,7 @@ MonoBehaviour:
   _attackDistance: 20
   _speed: 10
   _runSpeed: 16
-  _viewAngle: 320
+  _viewAngle: 340
   _viewDistance: 100
   _obstacleMask:
     serializedVersion: 2
@@ -3383,6 +3383,8 @@ MonoBehaviour:
   _attackSound: {fileID: 1720082351213392311}
   _growlSounds:
   - {fileID: 6876340698278200031}
+  _growlSoundIntervalWalk: {x: 8, y: 14}
+  _growlSoundIntervalRun: {x: 6, y: 10}
   midPoint: {fileID: 1121676971202582925}
   _jumpTime: 0.7
   _arcHeight: 5
