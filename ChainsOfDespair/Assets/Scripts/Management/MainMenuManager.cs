@@ -7,4 +7,9 @@ public class MainMenuManager : NetworkBehaviour
     {
         NetworkManager.Singleton.StartClient();
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

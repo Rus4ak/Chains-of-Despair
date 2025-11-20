@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5676b61cb3f2ba7449791779205c6a50
+guid: b6206f1a49266f541bdaa35828262600
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,23 +110,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: InventorySlot_0
+      name: Logo
       rect:
         serializedVersion: 2
-        x: 7
-        y: 10
-        width: 497
-        height: 492
+        x: 193
+        y: 214
+        width: 1123
+        height: 666
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 70, z: 0, w: 70}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efb20dd1e547aa24e94b4003824c54d0
-      internalID: -902473690
+      spriteID: b6556d3a4fc31ea4b8a76556e9103978
+      internalID: 1970757338
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4fa1fdd5d1b9afc4195142b118dce1c7
+    spriteID: 52dbc8a8fe2f3d541a975eb1c9284a17
     internalID: 0
     vertices: []
     indices: 
@@ -145,7 +145,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      InventorySlot_0: -902473690
+      Logo: 1970757338
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

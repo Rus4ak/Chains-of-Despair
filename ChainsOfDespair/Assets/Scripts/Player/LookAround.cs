@@ -15,7 +15,7 @@ public class LookAround : NetworkBehaviour
 
     private void Start()
     {
-        if (!IsOwner && LobbyManager.isStartedSession.Value)
+        if (!IsOwner && NetworkManager.Singleton.IsListening)
         {
             _camera.gameObject.SetActive(false);
             
