@@ -23,9 +23,10 @@ public class Enemy : NetworkBehaviour
     [SerializeField] private Vector2 _growlSoundIntervalRun;
 
     public Transform midPoint;
+    [HideInInspector] public BoxCollider patrolZone;
 
-    private Transform _minMapPos;
-    private Transform _maxMapPos;
+    private Vector2 _minMapPos;
+    private Vector2 _maxMapPos;
     protected Transform _attackedPlayer;
     protected NavMeshAgent _agent;
     private bool _isWarning;
@@ -52,8 +53,10 @@ public class Enemy : NetworkBehaviour
         if (!IsServer)
             return;
 
-        _minMapPos = GameObject.FindWithTag("MinMapPos").transform;
-        _maxMapPos = GameObject.FindWithTag("MaxMapPos").transform;
+        Vector3 patrolZoneCenter = patrolZone.center + patrolZone.transform.position;
+
+        _minMapPos = new Vector2(patrolZoneCenter.x - patrolZone.size.x / 2f, patrolZoneCenter.z - patrolZone.size.z / 2f);
+        _maxMapPos = new Vector2(patrolZoneCenter.x + patrolZone.size.x / 2f, patrolZoneCenter.z + patrolZone.size.z / 2f);
 
         ChangeState(Walk());
         StartCoroutine(IsSeePlayer());
@@ -152,8 +155,8 @@ public class Enemy : NetworkBehaviour
                     continue;
                 }
 
-                Vector3 randomPos = new Vector3(Random.Range(_minMapPos.position.x, _maxMapPos.position.x),
-                    _minMapPos.position.y, Random.Range(_minMapPos.position.z, _maxMapPos.position.z));
+                Vector3 randomPos = new Vector3(Random.Range(_minMapPos.x, _maxMapPos.x),
+                    transform.position.y, Random.Range(_minMapPos.y, _maxMapPos.y));
 
                 _agent.speed = _speed;
                 _agent.destination = randomPos;

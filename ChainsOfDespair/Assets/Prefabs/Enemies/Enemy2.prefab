@@ -3300,7 +3300,7 @@ NavMeshAgent:
   m_Radius: 1.26
   m_Speed: 3.5
   m_Acceleration: 80
-  avoidancePriority: 50
+  avoidancePriority: 75
   m_AngularSpeed: 12000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -3373,7 +3373,7 @@ MonoBehaviour:
   _speed: 10
   _runSpeed: 16
   _viewAngle: 340
-  _viewDistance: 100
+  _viewDistance: 50
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -3386,6 +3386,7 @@ MonoBehaviour:
   _growlSoundIntervalWalk: {x: 8, y: 14}
   _growlSoundIntervalRun: {x: 6, y: 10}
   midPoint: {fileID: 1121676971202582925}
+  patrolZone: {fileID: 0}
   _jumpTime: 0.7
   _arcHeight: 5
 --- !u!114 &5872543534466257223

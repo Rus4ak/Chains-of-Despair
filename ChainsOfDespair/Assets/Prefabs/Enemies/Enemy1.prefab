@@ -398,7 +398,7 @@ MonoBehaviour:
   _speed: 8
   _runSpeed: 24
   _viewAngle: 320
-  _viewDistance: 100
+  _viewDistance: 80
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -413,6 +413,7 @@ MonoBehaviour:
   _growlSoundIntervalWalk: {x: 5, y: 12}
   _growlSoundIntervalRun: {x: 3, y: 6}
   midPoint: {fileID: 1426037787918752040}
+  patrolZone: {fileID: 0}
 --- !u!114 &132098221012570602
 MonoBehaviour:
   m_ObjectHideFlags: 0

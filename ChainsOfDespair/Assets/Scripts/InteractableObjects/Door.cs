@@ -9,6 +9,7 @@ public class DoorData
 {
     public Transform door;
     public float zMoveTo;
+    public float yMoveTo;
 }
 
 public class Door : NetworkBehaviour, IInteractable
@@ -87,9 +88,10 @@ public class Door : NetworkBehaviour, IInteractable
         {
             startRotation[i] = _doors[i].door.rotation.eulerAngles;
 
-            endRotation[i] = new Vector3(startRotation[i].x, startRotation[i].y, startRotation[i].z + _doors[i].zMoveTo);
+            endRotation[i] = new Vector3(startRotation[i].x, startRotation[i].y + _doors[i].yMoveTo, startRotation[i].z + _doors[i].zMoveTo);
 
             _doors[i].zMoveTo = -_doors[i].zMoveTo;
+            _doors[i].yMoveTo = -_doors[i].yMoveTo;
         }
 
         while (time < _openTime)

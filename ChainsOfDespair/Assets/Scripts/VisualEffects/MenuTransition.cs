@@ -4,31 +4,24 @@ using UnityEngine.UI;
 
 public class MenuTransition : MonoBehaviour
 {
-    [SerializeField] private Transform _appearingMenu;
-    [SerializeField] private Transform _disappearingMenu;
-    [SerializeField] private float _animationTime;
-
-    private Button _button;
+    public static MenuTransition Instance;
 
     private void Awake()
     {
-        _button = GetComponent<Button>();
-        _button.onClick.AddListener(StartAnimation);
+        if (Instance != null)
+            Destroy(gameObject);
+
+        Instance = this;
     }
 
-    private void StartAnimation()
+    public IEnumerator AnimationRoutine(Transform appearingMenu, Transform disappearingMenu, float animationTime, float progressStartAppear)
     {
-        StartCoroutine(AnimationRoutine());
-    }
-
-    private IEnumerator AnimationRoutine()
-    {
-        Vector3 appearingMenuStartPos = _appearingMenu.localPosition;
-        Vector3 disappearingMenuStartPos = _disappearingMenu.localPosition;
+        Vector3 appearingMenuStartPos = appearingMenu.localPosition;
+        Vector3 disappearingMenuStartPos = disappearingMenu.localPosition;
 
         Coroutine appearRoutine = null;
 
-        float halfTime = _animationTime / 2;
+        float halfTime = animationTime / 2;
         float t = 0f;
 
         while (t < halfTime)
@@ -38,13 +31,13 @@ public class MenuTransition : MonoBehaviour
 
             float eased = EaseOutBack(progress);
 
-            _disappearingMenu.localPosition = Vector3.LerpUnclamped(disappearingMenuStartPos, appearingMenuStartPos, eased);
+            disappearingMenu.localPosition = Vector3.LerpUnclamped(disappearingMenuStartPos, appearingMenuStartPos, eased);
 
-            if (appearRoutine == null && progress >= 0.15f)
+            if (appearRoutine == null && progress >= progressStartAppear)
             {
                 appearRoutine = StartCoroutine(
                     MoveWithBackEasing(
-                        _appearingMenu,
+                        appearingMenu,
                         appearingMenuStartPos,
                         disappearingMenuStartPos,
                         halfTime * 0.5f
@@ -55,7 +48,7 @@ public class MenuTransition : MonoBehaviour
             yield return null;
         }
 
-        _disappearingMenu.localPosition = appearingMenuStartPos;
+        disappearingMenu.localPosition = appearingMenuStartPos;
 
         if (appearRoutine != null)
             yield return appearRoutine;

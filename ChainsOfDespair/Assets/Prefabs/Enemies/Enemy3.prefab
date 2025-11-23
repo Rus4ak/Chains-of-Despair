@@ -681,7 +681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3565009500
+  GlobalObjectIdHash: 1044449764
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -769,10 +769,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _attackDistance: 14
-  _speed: 8
-  _runSpeed: 16
+  _speed: 6
+  _runSpeed: 15
   _viewAngle: 300
-  _viewDistance: 100
+  _viewDistance: 85
   _obstacleMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -786,6 +786,7 @@ MonoBehaviour:
   _growlSoundIntervalWalk: {x: 9, y: 15}
   _growlSoundIntervalRun: {x: 7, y: 9}
   midPoint: {fileID: 6913933595552772887}
+  patrolZone: {fileID: 0}
 --- !u!114 &7315598635637361550
 MonoBehaviour:
   m_ObjectHideFlags: 0

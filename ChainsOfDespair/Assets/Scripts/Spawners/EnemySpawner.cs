@@ -35,6 +35,7 @@ public class EnemySpawner : NetworkBehaviour
 
             GameObject spawnedEnemy = Instantiate(enemy, spawnPos, Quaternion.identity);
             spawnedEnemy.GetComponent<NetworkObject>().Spawn();
+            spawnedEnemy.GetComponentInChildren<Enemy>().patrolZone = spawnZone;
         }
     }
 }

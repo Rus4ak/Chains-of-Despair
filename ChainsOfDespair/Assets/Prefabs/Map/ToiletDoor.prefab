@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 560189798611634811}
   - component: {fileID: 8838605956406450169}
   - component: {fileID: 1021225781121955532}
+  - component: {fileID: 4386120250487982107}
   m_Layer: 0
   m_Name: ToiletDoor
   m_TagString: Untagged
@@ -76,7 +77,11 @@ MonoBehaviour:
   _openTime: 1
   _doors:
   - door: {fileID: 1209620680873259837}
-    zMoveTo: -90
+    zMoveTo: 0
+    yMoveTo: -90
+  _lockedDoorAudioSource: {fileID: 0}
+  _unlockDoorAudioSource: {fileID: 0}
+  _keyName: 
 --- !u!82 &1021225781121955532
 AudioSource:
   m_ObjectHideFlags: 0
@@ -174,6 +179,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &4386120250487982107
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5873786657956545824}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 19.109863, y: 16.950638, z: 1}
+  m_Center: {x: -9.054932, y: 10.324642, z: 0}
 --- !u!1001 &6765728452430783457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,37 +283,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: eaa1840ac0cd2d546a84f2390303ca0f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4927279074883746439}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaa1840ac0cd2d546a84f2390303ca0f, type: 3}
---- !u!1 &6226456980037423493 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: eaa1840ac0cd2d546a84f2390303ca0f, type: 3}
-  m_PrefabInstance: {fileID: 6765728452430783457}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &4927279074883746439
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6226456980037423493}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.02, y: 0.05, z: 0.02}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &6516158162555274250 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eaa1840ac0cd2d546a84f2390303ca0f, type: 3}
