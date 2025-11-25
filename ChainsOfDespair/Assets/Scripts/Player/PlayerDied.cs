@@ -15,6 +15,8 @@ public class PlayerDied : NetworkBehaviour
 
     public event Action OnDeath;
 
+    public bool isLeave;
+
     public void Died()
     {
         DiedClientRpc();
@@ -36,7 +38,9 @@ public class PlayerDied : NetworkBehaviour
 
     private void Dead()
     {
-        StartCoroutine(StartFade());
+        if (!isLeave)
+            StartCoroutine(StartFade());
+        
         _diedPlayerNO.Value = NetworkObject;
         DeadServerRpc();
     }

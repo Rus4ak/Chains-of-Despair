@@ -22,6 +22,7 @@ public class ScreenFade : MonoBehaviour
 
     public void FadeOut(float fadeDuration)
     {
+        _blackScreen.gameObject.SetActive(true);
         isFade = false;
         StartCoroutine(Fade(0f, 1f, fadeDuration));
     }
@@ -50,6 +51,9 @@ public class ScreenFade : MonoBehaviour
         }
 
         isFade = true;
+
+        if (endAlpha == 0)
+            _blackScreen.gameObject.SetActive(false);
 
         if (PlayersManager.Instance.ownerCalculateDistance != null)
             PlayersManager.Instance.ownerCalculateDistance.enabled = true;

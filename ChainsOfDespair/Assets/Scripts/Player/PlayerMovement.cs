@@ -39,9 +39,6 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
-        if (!_playerInitialize.isMove)
-            return;
-
         MoveAnimation();
 
         if (!IsOwner)
@@ -53,15 +50,14 @@ public class PlayerMovement : NetworkBehaviour
             _isRun.Value = false;
         }
 
+        if (!_playerInitialize.isMove)
+            return;
+
         Jump();
     }
 
     private void FixedUpdate()
     {
-        if (PlayersManager.Instance.ownerPlayer != null)
-            if (!PlayersManager.Instance.ownerPlayer.isMove)
-                return;
-
         _isOnGround = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundCheckLayer);
 
         if (_isOnGround)
@@ -81,6 +77,13 @@ public class PlayerMovement : NetworkBehaviour
 
         if (!IsOwner)
             return;
+        
+        if (PlayersManager.Instance.ownerPlayer != null)
+            if (!PlayersManager.Instance.ownerPlayer.isMove)
+            {
+                _move = Vector3.zero;
+                return;
+            }
 
         Move();
     }

@@ -51,9 +51,24 @@ public class PlayerInitialize : NetworkBehaviour
         {
             PlayersManager.Instance.ownerPlayer = this;
             PlayersManager.Instance.ownerInventory = _inventory;
+            GameManager.Instance.OnLeave += LeaveServerRpc;
         }
         else
             _canvas.SetActive(false);
+    }
+
+    [ServerRpc]
+    private void LeaveServerRpc()
+    {
+        LeaveClientRpc();
+    }
+
+    [ClientRpc]
+    private void LeaveClientRpc()
+    {
+        List<PlayerInitialize> players = PlayersManager.Instance.players;
+        players[players.Count - 1].GetComponent<CalculateDistance>().connectedPlayers.Remove(transform);
+        players.Remove(this);
     }
 
     public void Spawn(Vector3 position)
@@ -78,7 +93,6 @@ public class PlayerInitialize : NetworkBehaviour
     [ClientRpc]
     private void DestroyChainClientRpc(NetworkObjectReference diedPlayerRef)
     {
-        
         if (!diedPlayerRef.TryGet(out NetworkObject diedPlayer))
             return;
 

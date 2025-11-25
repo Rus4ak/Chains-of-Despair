@@ -24,6 +24,11 @@ public class PlayersManager : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        GameManager.Instance.OnLeave += () => Destroy(gameObject);
+    }
+
     public void RestartGame()
     {
         NetworkManager.SceneManager.OnLoadEventCompleted += OnSceneLoaded;

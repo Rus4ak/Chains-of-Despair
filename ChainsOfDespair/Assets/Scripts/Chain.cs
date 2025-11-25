@@ -58,6 +58,12 @@ public class Chain : MonoBehaviour
 
     private void Update()
     {
+        if (_connectedPlayers[0] == null || _connectedPlayers[1] == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (_connectedPlayers[0].linearVelocity.magnitude > .1f || _connectedPlayers[1].linearVelocity.magnitude > .1f)
         {
             if (!_audioSource.isPlaying)

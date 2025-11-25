@@ -7,6 +7,7 @@ public class ChangeMenu : MonoBehaviour
     [SerializeField] private Transform _disappearingMenu;
     [SerializeField] private float _animationTime;
     [SerializeField] private float _progressStartAppear;
+    [SerializeField] private float _overshoot = 1f;
 
     private Button _button;
 
@@ -18,6 +19,6 @@ public class ChangeMenu : MonoBehaviour
 
     private void StartAnimation()
     {
-        StartCoroutine(MenuTransition.Instance.AnimationRoutine(_appearingMenu, _disappearingMenu, _animationTime, _progressStartAppear));
+        StartCoroutine(MenuTransition.Instance.AnimationRoutine(_appearingMenu, _disappearingMenu, _animationTime, _progressStartAppear, _overshoot));
     }
 }

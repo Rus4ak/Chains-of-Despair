@@ -10,6 +10,7 @@ public class LookAround : NetworkBehaviour
     
     private float xRotation;
     private Transform _attackEnemy;
+    private PlayerInitialize _playerInitialize;
 
     public Transform Camera => _camera;
 
@@ -24,6 +25,8 @@ public class LookAround : NetworkBehaviour
                 obj.layer = 0;
             }
         }
+
+        _playerInitialize = GetComponent<PlayerInitialize>();
 
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -42,6 +45,9 @@ public class LookAround : NetworkBehaviour
             return;
         }
 
+        if (!_playerInitialize.isMove)
+            return;
+
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
 
         transform.Rotate(Vector3.up * mouseX);
@@ -58,6 +64,9 @@ public class LookAround : NetworkBehaviour
             _neck.LookAt(_attackEnemy);
             return;
         }
+
+        if (!_playerInitialize.isMove)
+            return;
 
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
 

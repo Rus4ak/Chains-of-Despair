@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class MainMenuManager : NetworkBehaviour
+public class MainMenuManager : MonoBehaviour
 {
     public void Join()
     {
