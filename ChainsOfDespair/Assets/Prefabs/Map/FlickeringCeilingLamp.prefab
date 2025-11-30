@@ -281,6 +281,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: abd04409e3a555b48ac2a575d783cdd5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7990754061530959681}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: abd04409e3a555b48ac2a575d783cdd5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1463308588842161830}
   m_SourcePrefab: {fileID: 100100000, guid: abd04409e3a555b48ac2a575d783cdd5, type: 3}
 --- !u!23 &2597965145079001012 stripped
 MeshRenderer:
@@ -447,6 +450,19 @@ MonoBehaviour:
   _wallLayer:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &1463308588842161830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236813043901960397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 2
 --- !u!23 &5458726940693923365 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1129496810705857465, guid: abd04409e3a555b48ac2a575d783cdd5, type: 3}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8092487390549341218}
   - component: {fileID: 1720082351213392311}
+  - component: {fileID: 4839003542730729817}
   m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
@@ -129,6 +130,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4839003542730729817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188683603344351501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 1
 --- !u!1 &395741850742050145
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,6 +811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5265907261265336856}
   - component: {fileID: 6876340698278200031}
+  - component: {fileID: 5429936021974733579}
   m_Layer: 0
   m_Name: Growl1
   m_TagString: Untagged
@@ -916,6 +931,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5429936021974733579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3422704513150692592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 1
 --- !u!1 &3728528315312149182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,6 +1874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 900391135399726174}
   - component: {fileID: 5939765201300487216}
+  - component: {fileID: 2806404340121403578}
   m_Layer: 0
   m_Name: Warning
   m_TagString: Untagged
@@ -1965,6 +1994,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2806404340121403578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097785775666743104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 1
 --- !u!1 &4125855671245668051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,6 +2854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5282264050943413179}
   - component: {fileID: 4269545208537086524}
+  - component: {fileID: 6181612400245563400}
   m_Layer: 0
   m_Name: Steps
   m_TagString: Untagged
@@ -2931,6 +2974,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6181612400245563400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098782447700058068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 1
 --- !u!1 &8231674271563222901
 GameObject:
   m_ObjectHideFlags: 0

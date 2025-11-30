@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6454916958445238078}
   - component: {fileID: 4405306468717462107}
+  - component: {fileID: 4497523798838094959}
   m_Layer: 0
   m_Name: LockedDoorAudioSource
   m_TagString: Untagged
@@ -43,7 +44,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 5b03368f6d3b8a14fbf1c0c1716cef2c, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3088ab9a711edb346a0d927dc0086089, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -129,6 +130,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4497523798838094959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597284351151446975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 2
 --- !u!1 &3291851684489056033
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7854199972586379264}
   - component: {fileID: 6130291789862183587}
+  - component: {fileID: 2861834715945791679}
   m_Layer: 0
   m_Name: UnlockDoorAudioSource
   m_TagString: Untagged
@@ -258,6 +273,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2861834715945791679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3291851684489056033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 2
 --- !u!1001 &4327633672300672228
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -356,6 +384,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2250600230737126980}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4632996692061079323}
     - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7713508642598506594}
@@ -426,8 +457,10 @@ MonoBehaviour:
   _doors:
   - door: {fileID: 1150045225587066986}
     zMoveTo: -90
+    yMoveTo: 0
   - door: {fileID: 334767532635876681}
     zMoveTo: 90
+    yMoveTo: 0
   _lockedDoorAudioSource: {fileID: 4405306468717462107}
   _unlockDoorAudioSource: {fileID: 6130291789862183587}
   _keyName: 
@@ -549,6 +582,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4632996692061079323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3517238966955608501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 2
 --- !u!1 &3999957783968614016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 6b3556a9fb14bbb49b141e8ad30649a3, type: 3}

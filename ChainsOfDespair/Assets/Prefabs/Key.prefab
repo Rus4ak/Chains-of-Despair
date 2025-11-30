@@ -118,6 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8243895070771043819}
   - component: {fileID: 2391021558918617756}
+  - component: {fileID: 4450860881044623453}
   m_Layer: 0
   m_Name: FallKeyAudioSource
   m_TagString: Untagged
@@ -237,6 +238,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4450860881044623453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131699785754266733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 2
 --- !u!1 &1658763628826598842
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6259215523063993268}
   - component: {fileID: 831945571989109628}
+  - component: {fileID: 8426548142318489490}
   m_Layer: 0
   m_Name: TakeKeyAudioSource
   m_TagString: Untagged
@@ -507,3 +522,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8426548142318489490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8213243038087058376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 2

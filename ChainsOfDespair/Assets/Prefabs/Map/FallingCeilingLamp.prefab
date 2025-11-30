@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 5897021184134947876}
   - component: {fileID: 7639028654727176566}
   - component: {fileID: 8798634290723400581}
+  - component: {fileID: 7868159730827467511}
   m_Layer: 0
   m_Name: FallingCeilingLamp
   m_TagString: Untagged
@@ -620,6 +621,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6, y: 0.8, z: 6}
   m_Center: {x: 0, y: -0.4, z: 0}
+--- !u!114 &7868159730827467511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4741936627400012097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 2
 --- !u!1 &5689971680726510335
 GameObject:
   m_ObjectHideFlags: 0

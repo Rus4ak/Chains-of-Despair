@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8838605956406450169}
   - component: {fileID: 1021225781121955532}
   - component: {fileID: 4386120250487982107}
+  - component: {fileID: 7763863705354512235}
   m_Layer: 0
   m_Name: ToiletDoor
   m_TagString: Untagged
@@ -200,6 +201,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 19.109863, y: 16.950638, z: 1}
   m_Center: {x: -9.054932, y: 10.324642, z: 0}
+--- !u!114 &7763863705354512235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5873786657956545824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caaa667aa231fb94ea3e653b7d54b85d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundType: 2
 --- !u!1001 &6765728452430783457
 PrefabInstance:
   m_ObjectHideFlags: 0
