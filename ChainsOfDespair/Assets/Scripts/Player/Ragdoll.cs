@@ -8,6 +8,8 @@ public class Ragdoll : MonoBehaviour
     private void Start()
     {
         _hitSound = GetComponent<AudioSource>();
+
+        GetComponent<Rigidbody>().AddForce(-transform.forward * 50, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)
