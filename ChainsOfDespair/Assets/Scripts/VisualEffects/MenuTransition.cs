@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class MenuTransition : MonoBehaviour
 {
+    private AudioSource _menuSwitchSound;
+
     [HideInInspector] public bool isAnimate;
 
     public static MenuTransition Instance;
@@ -16,6 +18,11 @@ public class MenuTransition : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        _menuSwitchSound = GetComponent<AudioSource>();
     }
 
     public IEnumerator AnimationRoutine(Transform appearingMenu, Transform disappearingMenu, float animationTime, float progressStartAppear, float overshoot)
@@ -33,6 +40,9 @@ public class MenuTransition : MonoBehaviour
         float halfTime = animationTime / 2;
         float t = 0f;
 
+        if (disappearingMenu.name != "Target")
+            _menuSwitchSound.Play();
+
         while (t < halfTime)
         {
             t += Time.deltaTime;
@@ -44,6 +54,9 @@ public class MenuTransition : MonoBehaviour
 
             if (appearRoutine == null && progress >= progressStartAppear)
             {
+                if (appearingMenu.name != "Target")
+                    _menuSwitchSound.Play();
+
                 appearRoutine = StartCoroutine(
                     MoveWithBackEasing(
                         appearingMenu,
