@@ -29,9 +29,9 @@ public class Door : NetworkBehaviour, IInteractable
     {
         _audioSource = GetComponent<AudioSource>();
         
-        if (!KeySpawner.Instance.isSpawned)
+        if (!ItemSpawner.Instance.isSpawned)
             if (!_keyName.IsNullOrEmpty())
-                KeySpawner.Instance.lockedDoors.Add(this);
+                ItemSpawner.Instance.lockedDoors.Add(this);
     }
 
     public string GetInteractionPrompt()

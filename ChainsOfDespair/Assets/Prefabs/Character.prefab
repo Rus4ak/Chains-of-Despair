@@ -4027,6 +4027,7 @@ MonoBehaviour:
   _throwForce: 500
   _availableObjects:
   - {fileID: 1658763628826598842, guid: e460264f57c5b0b408e5402ac3febce2, type: 3}
+  - {fileID: 7669025638587850217, guid: a29dcaa26401e3245a3bf380a977d105, type: 3}
   _playerDied: {fileID: -8819045069730950035}
   freeSlots: 010101
   selectedItem: 

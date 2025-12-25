@@ -31,7 +31,7 @@ public class StartedDoor : NetworkBehaviour, IInteractable
 
     private void StartGame()
     {
-        KeySpawner.Instance.SpawnKeys();
+        ItemSpawner.Instance.SpawnItems();
         EnemySpawner.Instance.Spawn();
 
         StartGameClientRpc();

@@ -9,7 +9,7 @@ public class SpawnKeyPos : MonoBehaviour
 
     private void Start()
     {
-        if (!KeySpawner.Instance.isSpawned)
-            KeySpawner.Instance.spawnPositions.Add(this);
+        if (!ItemSpawner.Instance.isSpawned)
+            ItemSpawner.Instance.spawnPositions.Add(this);
     }
 }

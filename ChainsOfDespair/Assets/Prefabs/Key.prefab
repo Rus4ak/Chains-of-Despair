@@ -328,10 +328,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  _keyModel: {fileID: 984114735101766369}
-  _keySprite: {fileID: -1378168912, guid: cb03ea4519eca854e9a655746430e29e, type: 3}
-  _takeKeyAudioSource: {fileID: 831945571989109628}
-  _fallKeyAudioSource: {fileID: 2391021558918617756}
+  itemType: 0
+  _itemModel: {fileID: 984114735101766369}
+  _itemSprite: {fileID: -1378168912, guid: cb03ea4519eca854e9a655746430e29e, type: 3}
+  _takeAudioSource: {fileID: 831945571989109628}
+  _fallAudioSource: {fileID: 2391021558918617756}
 --- !u!65 &3117592381364268942
 BoxCollider:
   m_ObjectHideFlags: 0
